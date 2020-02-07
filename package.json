@@ -1,0 +1,19 @@
+{
+  "name": "btclastandroid",
+  "version": "1.0.0",
+  "description": "BTC price tracker",
+  "main": "backend/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm run start --prefix client",
+    "server": "nodemon index.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "start": "node backend/index.js"
+  },
+  "author": "Steve Howe",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
