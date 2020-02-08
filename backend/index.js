@@ -1,32 +1,48 @@
-// /index.js
 const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-
-// IMPORT MODELS
-require('../models/Btc');
-
+const path = require('path');
 const app = express();
-
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost:27017/btcLast`);
-
+const PORT = process.env.PORT || 5000
+const axios = require('axios').default;
+const bodyParser = require('body-parser');
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 
-//IMPORT ROUTES
-require('../routes/geminiRoutes')(app);
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+//   });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
-  const path = require('path');
-  app.get('*', (req,res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  })
-
-}
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`app running on port ${PORT}`)
+// // GET request for event data
+app.get('/gemini', function (req, res) {
+    axios.get('https://api.gemini.com/v1/pubticker/btcusd')
+    .then(data => res.status(200).send(data.data.last))
+    .catch(err => res.send(err));
 });
+
+app.get('/binance', function (req, res) {
+    axios.get('https://api.binance.us/api/v3/ticker/price?symbol=BTCUSDT')
+    .then(data => res.status(200).send(data.data.price))
+    .catch(err => res.send(err));
+});
+
+app.get('/coinbase', function (req, res) {
+  axios.get('https://api.coinbase.com/v2/prices/spot?currency=USD')
+  .then(data => res.status(200).send(data.data.data.amount))
+  .catch(err => res.send(err));
+});
+
+app.get('/kraken', function (req, res) {
+  axios.get('https://api.kraken.com/0/public/Ticker?pair=XBTUSD')
+  .then(data => res.status(200).send(data.data.result.XXBTZUSD.o))
+  .catch(err => res.send(err));
+});
+
+
+
+// axios.get('https://api.kraken.com/0/public/Ticker?pair=XBTUSD')
+// .then(response => console.log(response.data.result.XXBTZUSD.o))
+// .catch(err => res.send(err));
+
+
+app.listen(PORT, function() {
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+  });
