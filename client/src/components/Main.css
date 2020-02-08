@@ -2,12 +2,6 @@ html, body {
     /* height: 100vh; */
     margin: 0;
 }
-.table {
-    height: 30vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .NavButton {
     border-radius: 5px;

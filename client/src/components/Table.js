@@ -18,7 +18,8 @@ class Table extends Component {
         let spread = (max - min).toFixed(2);
         return(
             <>
-                <table>
+            <div className='table'>
+                <table >
                     <thead>
                     <tr>
                         <th className='chart-header' scope='col'>Exchange</th>
@@ -53,8 +54,10 @@ class Table extends Component {
                         <td className='price-text' >USD</td>
                     </tr>
                     </tbody>
-                    <p className="spreadText">Spread: ${spread}</p>
                 </table>
+                
+            </div>
+            <p className="spreadText">Spread: ${spread}</p>
             </>
         )
     }

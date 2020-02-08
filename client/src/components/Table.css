@@ -1,3 +1,11 @@
+
+.table {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 th.chart-header {
    
     padding: 5px;
