@@ -10,7 +10,9 @@ class Main extends Component {
       error: null,
       isLoaded: false,
       showSpread: true,
-      showGraph: false
+      showGraph: false,
+      lastTime: localStorage.getItem('lastTime'),
+      lastDate: localStorage.getItem('lastDate')
     };
   }
 
@@ -91,6 +93,7 @@ class Main extends Component {
     .then(
       (result) => {
         if (this.state.coinbase){
+          console.log('works')
           let coinbaseBTCLast = this.state.coinbase
           localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
         }      
@@ -103,7 +106,7 @@ class Main extends Component {
         result => {
           this.setState({
             isLoaded: true,
-            kraken: result,
+            kraken: result.toFixed(2),
             krakenBTCLast: localStorage.getItem('krakenBTCLast')
           });
         },
@@ -117,7 +120,8 @@ class Main extends Component {
       .then(
         (result) => {
           if (this.state.kraken){
-            let krakenBTCLast = this.state.kraken
+            console.log('works')
+            let krakenBTCLast = (this.state.kraken)
             localStorage.setItem('krakenBTCLast', krakenBTCLast)   
           }
                     
@@ -150,6 +154,12 @@ class Main extends Component {
     this.getPrices()
   }
 
+  componentWillUpdate(){
+  //   this.update = setInterval(() => {
+  //     this.getPrices();
+  // }, 60 * 1000);
+  }
+
 showSpread = () => {
   this.setState({
     showSpread: true,
@@ -174,6 +184,7 @@ showGraph = () => {
               <>
                 {this.state.showSpread ?
                   <div>
+                    {/* <button onClick={this.getPrices()}>Refresh</button> */}
                     <Table
                       gemini={this.state.gemini}
                       geminiBTCLast={this.state.geminiBTCLast}

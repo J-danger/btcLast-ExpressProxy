@@ -7,8 +7,8 @@ class Clock extends Component {
         super();
         this.state = { 
             time: new Date(),
-           
-        
+            lastTime: localStorage.getItem('lastTime'),
+            lastDate: localStorage.getItem('lastDate')
         }; 
     }
 
@@ -36,13 +36,13 @@ class Clock extends Component {
         return (
         <div className='Clock'>
             
-            <h2>
+            <h4>
                 {/* print the string prettily */}
                 {time.toLocaleTimeString()}
-            </h2>
-            <h2>
-            
-            </h2>
+            </h4>
+            <h4>
+                Last check: {this.state.lastTime}
+            </h4>
         </div>);
     }
 }

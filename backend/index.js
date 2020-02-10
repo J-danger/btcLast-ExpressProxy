@@ -32,7 +32,7 @@ app.get('/coinbase', function (req, res) {
 
 app.get('/kraken', function (req, res) {
   axios.get('https://api.kraken.com/0/public/Ticker?pair=XBTUSD')
-  .then(data => res.status(200).send(data.data.result.XXBTZUSD.o))
+  .then(data => res.status(200).send(data.data.result.XXBTZUSD.c[0]))
   .catch(err => res.send(err));
 });
 
