@@ -32,25 +32,25 @@ class Table extends Component {
                     <tr>
                         <th className='coin-text' scope='row'>Gemini</th>
                         <td className='price-text' >${this.props.gemini}</td>
-                        <td className='price-text' ></td>
+                        <td className='price-text' >${this.props.geminiBTCLast}</td>
                         <td className='price-text' >USD</td>
                     </tr>
                     <tr>
                         <th className='coin-text' scope='row'>Binance</th>
                         <td className='price-text' >${this.props.binance}</td>
-                        <td className='price-text' ></td>
+                        <td className='price-text' >${this.props.binanceBTCLast}</td>
                         <td className='price-text' >USD</td>
                     </tr>
                     <tr>
                         <th className='coin-text' scope='row'>Coinbase</th>
                         <td className='price-text' >${this.props.coinbase}</td>
-                        <td className='price-text' ></td>
+                        <td className='price-text' >${this.props.coinbaseBTCLast}</td>
                         <td className='price-text' >USD</td>
                     </tr>
                     <tr>
                         <th className='coin-text' scope='row'>Kraken</th>
                         <td className='price-text' >${this.props.kraken}</td>
-                        <td className='price-text' ></td>
+                        <td className='price-text' >${this.props.krakenBTCLast}</td>
                         <td className='price-text' >USD</td>
                     </tr>
                     </tbody>
