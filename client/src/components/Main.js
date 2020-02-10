@@ -124,6 +124,26 @@ class Main extends Component {
         }
       )
     )
+    .then(
+      fetch("/fees")
+      .then(res => res.json())
+      .then(
+        result => {
+          this.setState({
+            isLoaded: true,
+            minerFees: result,
+            minerFast: result.fastestFee,
+            minerFastBTC: (result.fastestFee / 100000000).toFixed(8)
+          });
+        },
+        error => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+    )
   };
 
   componentDidMount(){
@@ -163,6 +183,8 @@ showGraph = () => {
                       coinbaseBTCLast={this.state.coinbaseBTCLast}
                       kraken={this.state.kraken}
                       krakenBTCLast={this.state.krakenBTCLast}
+                      minerFees={this.state.minerFast}
+                      minerFastBTC={this.state.minerFastBTC}
                     />
                   </div>
                 :  <p>Placeholder for graph</p> }

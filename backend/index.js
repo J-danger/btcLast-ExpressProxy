@@ -36,6 +36,12 @@ app.get('/kraken', function (req, res) {
   .catch(err => res.send(err));
 });
 
+app.get('/fees', function (req, res) {
+  axios.get('https://bitcoinfees.earn.com/api/v1/fees/recommended')
+  .then(data => res.status(200).send(data.data))
+  .catch(err => res.send(err));
+});
+
 
 
 // axios.get('https://api.kraken.com/0/public/Ticker?pair=XBTUSD')

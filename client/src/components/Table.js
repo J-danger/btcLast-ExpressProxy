@@ -58,6 +58,7 @@ class Table extends Component {
                 
             </div>
             <p className="spreadText">Spread: ${spread}</p>
+            <p className="spreadText>">Miner Fees: {this.props.minerFees} Sats ({this.props.minerFastBTC})</p>
             </>
         )
     }
