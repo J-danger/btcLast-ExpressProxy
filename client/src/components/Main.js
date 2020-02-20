@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Table from './Table'
+// import Graph from './Graph'
 import './Main.css'
 
 class Main extends Component {
@@ -12,7 +13,8 @@ class Main extends Component {
       showSpread: true,
       showGraph: false,
       lastTime: localStorage.getItem('lastTime'),
-      lastDate: localStorage.getItem('lastDate')
+      lastDate: localStorage.getItem('lastDate'),
+      kraken: []
     };
   }
 
@@ -24,7 +26,7 @@ class Main extends Component {
           
           this.setState({
             isLoaded: true,
-            gemini: result,
+            gemini: result.last,
             geminiBTCLast: localStorage.getItem('geminiBTCLast')
           });
         },
@@ -50,7 +52,7 @@ class Main extends Component {
         result => {
           this.setState({
             isLoaded: true,
-            binance: result,
+            binance: result.price,
             binanceBTCLast: localStorage.getItem('binanceBTCLast')
           });
         },
@@ -78,7 +80,7 @@ class Main extends Component {
         result => {
           this.setState({
             isLoaded: true,
-            coinbase: result,
+            coinbase: result.amount,
             coinbaseBTCLast: localStorage.getItem('coinbaseBTCLast')
           });
         },
@@ -104,10 +106,12 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
+          
           this.setState({
             isLoaded: true,
-            kraken: result.toFixed(2),
-            krakenBTCLast: localStorage.getItem('krakenBTCLast')
+            kraken: result.c[0],
+            krakenBTCLast: localStorage.getItem('krakenBTCLast'),
+            krakenBTCVolume: result.v[1]
           });
         },
         error => {

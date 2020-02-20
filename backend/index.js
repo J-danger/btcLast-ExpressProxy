@@ -14,25 +14,25 @@ app.use(bodyParser.json());
 // // GET request for event data
 app.get('/gemini', function (req, res) {
     axios.get('https://api.gemini.com/v1/pubticker/btcusd')
-    .then(data => res.status(200).send(data.data.last))
+    .then(data => res.status(200).send(data.data))
     .catch(err => res.send(err));
 });
 
 app.get('/binance', function (req, res) {
     axios.get('https://api.binance.us/api/v3/ticker/price?symbol=BTCUSDT')
-    .then(data => res.status(200).send(data.data.price))
+    .then(data => res.status(200).send(data.data))
     .catch(err => res.send(err));
 });
 
 app.get('/coinbase', function (req, res) {
   axios.get('https://api.coinbase.com/v2/prices/spot?currency=USD')
-  .then(data => res.status(200).send(data.data.data.amount))
+  .then(data => res.status(200).send(data.data.data))
   .catch(err => res.send(err));
 });
 
 app.get('/kraken', function (req, res) {
   axios.get('https://api.kraken.com/0/public/Ticker?pair=XBTUSD')
-  .then(data => res.status(200).send(data.data.result.XXBTZUSD.c[0]))
+  .then(data => res.status(200).send(data.data.result.XXBTZUSD))
   .catch(err => res.send(err));
 });
 

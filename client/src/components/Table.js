@@ -24,10 +24,18 @@ class Table extends Component {
         let min = Math.min(...minMax);
         let spread = (max - min).toFixed(2);
 
-        let geminiDiff = (this.props.gemini - this.props.geminiBTCLast).toFixed(2)
-        let binanceDiff = (this.props.binance - this.props.binanceBTCLast).toFixed(2)
-        let coinbaseDiff = (this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2)
-        let krakenDiff = (this.props.kraken - this.props.krakenBTCLast).toFixed(2)
+        let geminiBTCDiff = (this.props.gemini - this.props.geminiBTCLast).toFixed(2)
+        let binanceBTCDiff = (this.props.binance - this.props.binanceBTCLast).toFixed(2)
+        let coinbaseBTCDiff = (this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2)
+        let krakenBTCDiff = (this.props.kraken - this.props.krakenBTCLast).toFixed(2)
+
+        let geminiBTCPerc = (((this.props.gemini - this.props.geminiBTCLast) / this.props.geminiBTCLast) * 100).toFixed(4)
+        let binanceBTCPerc = (((this.props.binance - this.props.binanceBTCLast) / this.props.binanceBTCLast) * 100).toFixed(4)
+        let coinbaseBTCPerc = (((this.props.coinbase - this.props.coinbaseBTCLast) / this.props.coinbaseBTCLast) * 100).toFixed(4)
+        let krakenBTCPerc = (((this.props.kraken - this.props.krakenBTCLast) / this.props.krakenBTCLast) * 100).toFixed(4)
+
+        // let differenceBTC = (this.state.priceBTC - this.state.lastBTC).toFixed(2)
+        // let differencePercBTC = (((this.state.priceBTC - this.state.lastBTC) / this.state.lastBTC) * 100)
 
         return(
             <>
@@ -49,7 +57,9 @@ class Table extends Component {
                         <th className='coin-text' scope='row'>Gemini</th>
                         <td className='price-text' >${this.props.gemini}</td>
                         <td className='price-text' >${this.props.geminiBTCLast}</td>
-                        <td className='price-text' >${geminiDiff}</td>
+                        <td className='tooltip' >{geminiBTCPerc}%
+                        <span class="tooltiptext">${geminiBTCDiff}</span>
+                        </td>
                         <td className='price-text' ></td>
                         
                     </tr>
@@ -57,7 +67,9 @@ class Table extends Component {
                         <th className='coin-text' scope='row'>Binance</th>
                         <td className='price-text' >${this.props.binance}</td>
                         <td className='price-text' >${this.props.binanceBTCLast}</td>
-                        <td className='price-text' >${binanceDiff}</td>
+                        <td className='tooltip' >{binanceBTCPerc}%
+                        <span class="tooltiptext">${binanceBTCDiff}</span>
+                        </td>
                         <td className='price-text' ></td>
                         
                     </tr>
@@ -65,7 +77,9 @@ class Table extends Component {
                         <th className='coin-text' scope='row'>Coinbase</th>
                         <td className='price-text' >${this.props.coinbase}</td>
                         <td className='price-text' >${this.props.coinbaseBTCLast}</td>
-                        <td className='price-text' >${coinbaseDiff}</td>
+                        <td className='tooltip' >{coinbaseBTCPerc}%
+                        <span class="tooltiptext">${coinbaseBTCDiff}</span>
+                        </td>
                         <td className='price-text' ></td>
                         
                     </tr>
@@ -73,7 +87,9 @@ class Table extends Component {
                         <th className='coin-text' scope='row'>Kraken</th>
                         <td className='price-text' >${this.props.kraken}</td>
                         <td className='price-text' >${this.props.krakenBTCLast}</td>
-                        <td className='price-text' >${krakenDiff}</td>
+                        <td className='tooltip' >{krakenBTCPerc}%
+                        <span class="tooltiptext">${krakenBTCDiff}</span>
+                        </td>
                         <td className='price-text' ></td>
                       
                     </tr>
