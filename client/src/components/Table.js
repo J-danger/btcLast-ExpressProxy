@@ -24,6 +24,8 @@ class Table extends Component {
         let min = Math.min(...minMax);
         let spread = (max - min).toFixed(2);
 
+        console.log(this.props.gemini)
+
         let geminiBTCDiff = (this.props.gemini - this.props.geminiBTCLast).toFixed(2)
         let binanceBTCDiff = (this.props.binance - this.props.binanceBTCLast).toFixed(2)
         let coinbaseBTCDiff = (this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2)

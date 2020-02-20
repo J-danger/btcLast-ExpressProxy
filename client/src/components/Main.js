@@ -26,7 +26,7 @@ class Main extends Component {
           
           this.setState({
             isLoaded: true,
-            gemini: result.last,
+            gemini: parseInt(result.last).toFixed(2),
             geminiBTCLast: localStorage.getItem('geminiBTCLast')
           });
         },
@@ -50,11 +50,14 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
-          this.setState({
-            isLoaded: true,
-            binance: result.price,
-            binanceBTCLast: localStorage.getItem('binanceBTCLast')
-          });
+          if (result){
+            this.setState({
+              isLoaded: true,
+              binance: parseInt(result.price).toFixed(2),
+              binanceBTCLast: localStorage.getItem('binanceBTCLast')
+            });
+
+          }
         },
         error => {
           this.setState({
@@ -80,8 +83,9 @@ class Main extends Component {
         result => {
           this.setState({
             isLoaded: true,
-            coinbase: result.amount,
+            coinbase: parseInt(result.amount).toFixed(2),
             coinbaseBTCLast: localStorage.getItem('coinbaseBTCLast')
+            // coinbaseBTCVol: result.
           });
         },
         error => {
@@ -106,12 +110,11 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
-          
           this.setState({
             isLoaded: true,
-            kraken: result.c[0],
+            kraken: parseInt(result.c[0]).toFixed(2),
             krakenBTCLast: localStorage.getItem('krakenBTCLast'),
-            krakenBTCVolume: result.v[1]
+            krakenBTCVol: result.v[1]
           });
         },
         error => {
@@ -179,6 +182,9 @@ showGraph = () => {
   }
 
   render() {
+    // let gemini = this.state.gemini
+    
+    // console.log(gemini)
       return (
         <>
           {this.state.isLoaded ? 
