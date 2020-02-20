@@ -24,8 +24,6 @@ class Table extends Component {
         let min = Math.min(...minMax);
         let spread = (max - min).toFixed(2);
 
-        console.log(this.props.gemini)
-
         let geminiBTCDiff = (this.props.gemini - this.props.geminiBTCLast).toFixed(2)
         let binanceBTCDiff = (this.props.binance - this.props.binanceBTCLast).toFixed(2)
         let coinbaseBTCDiff = (this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2)
@@ -35,9 +33,14 @@ class Table extends Component {
         let binanceBTCPerc = (((this.props.binance - this.props.binanceBTCLast) / this.props.binanceBTCLast) * 100).toFixed(4)
         let coinbaseBTCPerc = (((this.props.coinbase - this.props.coinbaseBTCLast) / this.props.coinbaseBTCLast) * 100).toFixed(4)
         let krakenBTCPerc = (((this.props.kraken - this.props.krakenBTCLast) / this.props.krakenBTCLast) * 100).toFixed(4)
+       
+        let geminiInt = parseInt(this.props.gemini)
+        let binanceInt = parseInt(this.props.binance)
+        let coinbaseInt = parseInt(this.props.coinbase)
+        let krakenInt = parseInt(this.props.kraken)
+        let btcAvr = ((geminiInt + binanceInt + coinbaseInt + krakenInt)/4).toFixed(2)
 
-        // let differenceBTC = (this.state.priceBTC - this.state.lastBTC).toFixed(2)
-        // let differencePercBTC = (((this.state.priceBTC - this.state.lastBTC) / this.state.lastBTC) * 100)
+        let minerFeePrice = (btcAvr*this.props.minerFastBTC).toFixed(4)
 
         return(
             <>
@@ -60,7 +63,7 @@ class Table extends Component {
                         <td className='price-text' >${this.props.gemini}</td>
                         <td className='price-text' >${this.props.geminiBTCLast}</td>
                         <td className='tooltip' >{geminiBTCPerc}%
-                        <span class="tooltiptext">${geminiBTCDiff}</span>
+                        <span class='tooltiptext'>${geminiBTCDiff}</span>
                         </td>
                         <td className='price-text' ></td>
                         
@@ -70,7 +73,7 @@ class Table extends Component {
                         <td className='price-text' >${this.props.binance}</td>
                         <td className='price-text' >${this.props.binanceBTCLast}</td>
                         <td className='tooltip' >{binanceBTCPerc}%
-                        <span class="tooltiptext">${binanceBTCDiff}</span>
+                        <span class='tooltiptext'>${binanceBTCDiff}</span>
                         </td>
                         <td className='price-text' ></td>
                         
@@ -80,7 +83,7 @@ class Table extends Component {
                         <td className='price-text' >${this.props.coinbase}</td>
                         <td className='price-text' >${this.props.coinbaseBTCLast}</td>
                         <td className='tooltip' >{coinbaseBTCPerc}%
-                        <span class="tooltiptext">${coinbaseBTCDiff}</span>
+                        <span class='tooltiptext'>${coinbaseBTCDiff}</span>
                         </td>
                         <td className='price-text' ></td>
                         
@@ -90,7 +93,7 @@ class Table extends Component {
                         <td className='price-text' >${this.props.kraken}</td>
                         <td className='price-text' >${this.props.krakenBTCLast}</td>
                         <td className='tooltip' >{krakenBTCPerc}%
-                        <span class="tooltiptext">${krakenBTCDiff}</span>
+                        <span class='tooltiptext'>${krakenBTCDiff}</span>
                         </td>
                         <td className='price-text' ></td>
                       
@@ -100,9 +103,12 @@ class Table extends Component {
                 
             </div>
             <div>
-            <p className="spreadText">Spread: ${spread}</p>
-            <p className="spreadText>">Miner Fees: {this.props.minerFees} Sats ({this.props.minerFastBTC})</p>
-            {/* <p className="spreadText>">Average Price:{average}</p> */}
+            <p className='spreadText'>Average: ${btcAvr}</p>
+            <p className='spreadText'>Spread: ${spread}</p>
+            <p className='tooltip'>Miner Fee: {this.props.minerFastBTC} BTC
+            <span class='tooltiptext'>${minerFeePrice}</span>
+            </p>
+            {/* <p className='spreadText>'>Average Price:{average}</p> */}
             </div>
             </>
         )
@@ -110,3 +116,5 @@ class Table extends Component {
 }
 
 export default Table
+
+// BTC (Sats {this.props.minerFees}) (${minerFeePrice})
