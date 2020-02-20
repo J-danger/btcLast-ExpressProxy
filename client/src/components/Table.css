@@ -1,9 +1,27 @@
 
-.table {
-    margin-top: 5%;
-    display: flex;
+.tables {
+      display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.price-table {
+    margin-top: 5%;
+    margin-right: 5px;
+    color: whitesmoke;
+    float: left;
+    
+}
+
+table {
+    border: 1px solid #DF7373;
+    padding: 10px;
+    background: #464555;
+}
+
+.spread-data {
+    margin-left: 5px;
+    float: left;
 }
 
 th.chart-header {
@@ -12,21 +30,26 @@ th.chart-header {
 }
 
 th.coin-text {
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 1px solid #DF7373;
+    border-right: 1px solid #DF7373;
     
 }
 
 td.price-text {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #DF7373;
    
+}
+
+.spread-data {
+    color: white;
+    list-style-type: none;
 }
 
 /* Tooltip container */
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    border-bottom: 1px dotted #4d80e4; /* If you want dots under the hoverable text */
   }
   
   /* Tooltip text */

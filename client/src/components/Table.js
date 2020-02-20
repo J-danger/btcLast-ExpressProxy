@@ -6,7 +6,9 @@ class Table extends Component {
         super(props)
         this.state = {
             isLoaded: false,
-            error: null
+            error: null,
+            lastTime: localStorage.getItem('lastTime'),
+            lastDate: localStorage.getItem('lastDate')           
         }
     }
 
@@ -43,74 +45,87 @@ class Table extends Component {
         let minerFeePrice = (btcAvr*this.props.minerFastBTC).toFixed(4)
 
         return(
-            <>
-            <div className='table'>
-                <table >
-                    <thead>
-                    <tr>
-                        <th className='chart-header' scope='col'>Exchange</th>
-                        <th className='chart-header' scope='col'>Current</th>
-                        <th className='chart-header' scope='col'>Last</th>
-                        <th className='chart-header' scope='col'>Difference</th>
-                        <th className='chart-header' scope='col'>Fees</th>
+
+        <>
+            <p>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
+            <div className='tables'>
+                <div className='price-table'>
+                    <table >
+                        <thead>
+                        <tr>
+                            <th className='chart-header' scope='col'>Exchange</th>
+                            <th className='chart-header' scope='col'>Current</th>
+                            <th className='chart-header' scope='col'>Last</th>
+                            <th className='chart-header' scope='col'>Difference</th>
+                            <th className='chart-header' scope='col'>Fees</th>
+                            
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th className='coin-text' scope='row'>Gemini</th>
+                            <td className='price-text' >${this.props.gemini}</td>
+                            <td className='price-text' >${this.props.geminiBTCLast}</td>
+                            <td className='tooltip' >{geminiBTCPerc}%
+                            <span class='tooltiptext'>${geminiBTCDiff}</span>
+                            </td>
+                            <td className='price-text' ></td>
+                            
+                        </tr>
+                        <tr>
+                            <th className='coin-text' scope='row'>Binance</th>
+                            <td className='price-text' >${this.props.binance}</td>
+                            <td className='price-text' >${this.props.binanceBTCLast}</td>
+                            <td className='tooltip' >{binanceBTCPerc}%
+                            <span class='tooltiptext'>${binanceBTCDiff}</span>
+                            </td>
+                            <td className='price-text' ></td>
+                            
+                        </tr>
+                        <tr>
+                            <th className='coin-text' scope='row'>Coinbase</th>
+                            <td className='price-text' >${this.props.coinbase}</td>
+                            <td className='price-text' >${this.props.coinbaseBTCLast}</td>
+                            <td className='tooltip' >{coinbaseBTCPerc}%
+                            <span class='tooltiptext'>${coinbaseBTCDiff}</span>
+                            </td>
+                            <td className='price-text' ></td>
+                            
+                        </tr>
+                        <tr>
+                            <th className='coin-text' scope='row'>Kraken</th>
+                            <td className='price-text' >${this.props.kraken}</td>
+                            <td className='price-text' >${this.props.krakenBTCLast}</td>
+                            <td className='tooltip' >{krakenBTCPerc}%
+                            <span class='tooltiptext'>${krakenBTCDiff}</span>
+                            </td>
+                            <td className='price-text' ></td>
                         
-                        
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th className='coin-text' scope='row'>Gemini</th>
-                        <td className='price-text' >${this.props.gemini}</td>
-                        <td className='price-text' >${this.props.geminiBTCLast}</td>
-                        <td className='tooltip' >{geminiBTCPerc}%
-                        <span class='tooltiptext'>${geminiBTCDiff}</span>
-                        </td>
-                        <td className='price-text' ></td>
-                        
-                    </tr>
-                    <tr>
-                        <th className='coin-text' scope='row'>Binance</th>
-                        <td className='price-text' >${this.props.binance}</td>
-                        <td className='price-text' >${this.props.binanceBTCLast}</td>
-                        <td className='tooltip' >{binanceBTCPerc}%
-                        <span class='tooltiptext'>${binanceBTCDiff}</span>
-                        </td>
-                        <td className='price-text' ></td>
-                        
-                    </tr>
-                    <tr>
-                        <th className='coin-text' scope='row'>Coinbase</th>
-                        <td className='price-text' >${this.props.coinbase}</td>
-                        <td className='price-text' >${this.props.coinbaseBTCLast}</td>
-                        <td className='tooltip' >{coinbaseBTCPerc}%
-                        <span class='tooltiptext'>${coinbaseBTCDiff}</span>
-                        </td>
-                        <td className='price-text' ></td>
-                        
-                    </tr>
-                    <tr>
-                        <th className='coin-text' scope='row'>Kraken</th>
-                        <td className='price-text' >${this.props.kraken}</td>
-                        <td className='price-text' >${this.props.krakenBTCLast}</td>
-                        <td className='tooltip' >{krakenBTCPerc}%
-                        <span class='tooltiptext'>${krakenBTCDiff}</span>
-                        </td>
-                        <td className='price-text' ></td>
-                      
-                    </tr>
-                    </tbody>
-                </table>
-                
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div className='spread-data'>
+                    <table className='spread-table'>
+                        <tr>
+                            <th className='spreadText'>Average: </th>
+                            <td className='spreadText'>${btcAvr}</td>
+                        </tr>
+                        <tr>
+                            <th className='spreadText'>Spread: </th>
+                            <td className='spreadText'>${spread}</td>
+                        </tr>
+                        <tr>
+                            <th className='spreadText'>Miner Fee: </th>
+                            <td className='tooltip'>{this.props.minerFastBTC} BTC
+                            <span class='tooltiptext'>${minerFeePrice}</span></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div>
-            <p className='spreadText'>Average: ${btcAvr}</p>
-            <p className='spreadText'>Spread: ${spread}</p>
-            <p className='tooltip'>Miner Fee: {this.props.minerFastBTC} BTC
-            <span class='tooltiptext'>${minerFeePrice}</span>
-            </p>
-            {/* <p className='spreadText>'>Average Price:{average}</p> */}
-            </div>
-            </>
+        </>
         )
     }
 }

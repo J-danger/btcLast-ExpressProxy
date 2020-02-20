@@ -40,9 +40,6 @@ class Clock extends Component {
                 {/* print the string prettily */}
                 {time.toLocaleTimeString()}
             </h4>
-            <h4>
-                Last check: {this.state.lastTime} on {this.state.lastDate}
-            </h4>
         </div>);
     }
 }
