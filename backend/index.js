@@ -7,13 +7,13 @@ const bodyParser = require('body-parser');
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-  }
+if(process.env.NODE_ENV === 'production'){
+  //set static folder
+  app.use(express.static('client/build'));
+}
+app.get('*',(req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 
 app.get('/gemini', function (req, res) {
     axios.get('https://api.gemini.com/v1/pubticker/btcusd')
