@@ -1,10 +1,22 @@
 html, body {
-    /* height: 100vh; */
+    height: 100vh;
     margin: 0;
 }
 
 .NavButton {
     border-radius: 5px;
+    border: none;
     padding: 10px;
     margin: 10px;
+    background: #464555;
+    color: #E97667
+}
+
+.loading {
+    height: 100vh;
+    margin-top: 0;
+}
+
+.navbar {
+    background:#72435C;
 }

@@ -189,8 +189,10 @@ showGraph = () => {
         <>
           {this.state.isLoaded ? 
           <>
-              <button onClick={this.showSpread} className='NavButton'>Spread</button>
-              <button onClick={this.showGraph} className='NavButton'>Graph</button>
+              <nav className='navbar'>
+                <button onClick={this.showSpread} className='NavButton'>Spread</button>
+                <button onClick={this.showGraph} className='NavButton'>Graph</button>
+              </nav>
               <>
                 {this.state.showSpread ?
                   <div>
@@ -211,7 +213,7 @@ showGraph = () => {
                 :  <p>Placeholder for graph</p> }
               </>
           </>
-              : <p>Loading...</p> }
+              : <p className='loading'>Loading...</p> }
         </>
       )
   }

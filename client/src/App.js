@@ -5,11 +5,12 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Main from './components/Main'
 import Clock from './components/Clock';
 
+
 function App() {
   return (
     <div className="App">
-      <Clock/>
       <Main/>
+      <Clock/>
     </div>
   );
 }
