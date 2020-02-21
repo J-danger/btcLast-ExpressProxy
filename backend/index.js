@@ -4,11 +4,11 @@ const app = express();
 const PORT = process.env.PORT || 5000
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.json());
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join('index.html'));
 });
 
 // // GET request for event data
