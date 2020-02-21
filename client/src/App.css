@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background: #DDEEEE;
+  background: #424554;
   min-height: 100vh;
 }
 
@@ -38,3 +38,4 @@
     transform: rotate(360deg);
   }
 }
+

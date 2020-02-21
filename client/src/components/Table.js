@@ -42,12 +42,12 @@ class Table extends Component {
         let krakenInt = parseInt(this.props.kraken)
         let btcAvr = ((geminiInt + binanceInt + coinbaseInt + krakenInt)/4).toFixed(2)
 
-        let minerFeePrice = (btcAvr*this.props.minerFastBTC).toFixed(4)
+        let minerFeePrice = (btcAvr * this.props.minerFastBTC).toFixed(4)
 
         return(
 
         <>
-            <p>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
+            <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
             <div className='tables'>
                 <div className='price-table'>
                     <table >
@@ -57,7 +57,7 @@ class Table extends Component {
                             <th className='chart-header' scope='col'>Current</th>
                             <th className='chart-header' scope='col'>Last</th>
                             <th className='chart-header' scope='col'>Difference</th>
-                            <th className='chart-header' scope='col'>Fees</th>
+                            {/* <th className='chart-header' scope='col'>Fees</th> */}
                             
                             
                         </tr>
@@ -70,7 +70,7 @@ class Table extends Component {
                             <td className='tooltip' >{geminiBTCPerc}%
                             <span class='tooltiptext'>${geminiBTCDiff}</span>
                             </td>
-                            <td className='price-text' ></td>
+                            
                             
                         </tr>
                         <tr>
@@ -80,7 +80,7 @@ class Table extends Component {
                             <td className='tooltip' >{binanceBTCPerc}%
                             <span class='tooltiptext'>${binanceBTCDiff}</span>
                             </td>
-                            <td className='price-text' ></td>
+                           
                             
                         </tr>
                         <tr>
@@ -90,7 +90,7 @@ class Table extends Component {
                             <td className='tooltip' >{coinbaseBTCPerc}%
                             <span class='tooltiptext'>${coinbaseBTCDiff}</span>
                             </td>
-                            <td className='price-text' ></td>
+                            
                             
                         </tr>
                         <tr>
@@ -100,7 +100,7 @@ class Table extends Component {
                             <td className='tooltip' >{krakenBTCPerc}%
                             <span class='tooltiptext'>${krakenBTCDiff}</span>
                             </td>
-                            <td className='price-text' ></td>
+                            
                         
                         </tr>
                         </tbody>

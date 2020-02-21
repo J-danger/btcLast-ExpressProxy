@@ -1,6 +1,6 @@
 
 .tables {
-      display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -14,9 +14,12 @@
 }
 
 table {
-    border: 1px solid #DF7373;
+    border: 1px solid #EC440C;
     padding: 10px;
     background: #464555;
+    -webkit-box-shadow: 0 10px 6px -6px rgb(0, 0, 0);
+    -moz-box-shadow: 0 10px 6px -6px rgb(0, 0, 0);
+    box-shadow: 0 10px 6px -6px rgb(0, 0, 0);
 }
 
 .spread-data {
@@ -30,13 +33,13 @@ th.chart-header {
 }
 
 th.coin-text {
-    border-bottom: 1px solid #DF7373;
-    border-right: 1px solid #DF7373;
+    border-bottom: 1px solid #F3A889;
+    border-right: 1px solid #F3A889;
     
 }
 
 td.price-text {
-    border-bottom: 1px solid #DF7373;
+    border-bottom: 1px solid #F3A889;
    
 }
 
@@ -90,4 +93,8 @@ td.price-text {
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+  }
+
+  .last-check {
+    color: whitesmoke
   }
