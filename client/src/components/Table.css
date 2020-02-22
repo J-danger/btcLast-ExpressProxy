@@ -96,5 +96,8 @@ td.price-text {
   }
 
   .last-check {
-    color: whitesmoke
+    color: whitesmoke;
+    background: #72435C;
+    margin: 0px;
+    padding: 20px;
   }

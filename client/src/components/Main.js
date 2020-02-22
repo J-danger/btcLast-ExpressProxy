@@ -190,8 +190,8 @@ showGraph = () => {
           {this.state.isLoaded ? 
           <>
               <nav className='navbar'>
-                <button onClick={this.showSpread} className='NavButton'>Spread</button>
-                <button onClick={this.showGraph} className='NavButton'>Graph</button>
+                <button onClick={this.showSpread} className='navButton'>Home</button>
+                <button onClick={this.showGraph} className='navButton'>Graph</button>
               </nav>
               <>
                 {this.state.showSpread ?

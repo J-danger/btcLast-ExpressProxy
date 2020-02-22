@@ -7,9 +7,9 @@ const bodyParser = require('body-parser');
 app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.json());
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join('index.html'));
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join('index.html'));
+// });
 
 // // GET request for event data
 app.get('/gemini', function (req, res) {
