@@ -24,9 +24,22 @@ app.get('/binance', function (req, res) {
     .catch(err => res.send(err));
 });
 
+
+app.get('/binanceVol', function (req, res) {
+  axios.get('https://api.binance.com/api/v3/ticker/24hr')
+  .then(data => res.status(200).send(data.data))
+  .catch(err => res.send(err));
+});
+
 app.get('/coinbase', function (req, res) {
   axios.get('https://api.coinbase.com/v2/prices/spot?currency=USD')
   .then(data => res.status(200).send(data.data.data))
+  .catch(err => res.send(err));
+});
+
+app.get('/coinbaseVol', function (req, res) {
+  axios.get('https://api.pro.coinbase.com/products/BTC-USD/ticker')
+  .then(data => res.status(200).send(data.data))
   .catch(err => res.send(err));
 });
 
@@ -36,17 +49,13 @@ app.get('/kraken', function (req, res) {
   .catch(err => res.send(err));
 });
 
+
+
 app.get('/fees', function (req, res) {
   axios.get('https://bitcoinfees.earn.com/api/v1/fees/recommended')
   .then(data => res.status(200).send(data.data))
   .catch(err => res.send(err));
 });
-
-
-
-// axios.get('https://api.kraken.com/0/public/Ticker?pair=XBTUSD')
-// .then(response => console.log(response.data.result.XXBTZUSD.o))
-// .catch(err => res.send(err));
 
 
 app.listen(PORT, function() {

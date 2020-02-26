@@ -14,7 +14,7 @@ class Main extends Component {
       showGraph: false,
       lastTime: localStorage.getItem('lastTime'),
       lastDate: localStorage.getItem('lastDate'),
-      kraken: []
+      binanceVol: []
     };
   }
 
@@ -27,7 +27,8 @@ class Main extends Component {
           this.setState({
             isLoaded: true,
             gemini: parseInt(result.last).toFixed(2),
-            geminiBTCLast: localStorage.getItem('geminiBTCLast')
+            geminiBTCLast: localStorage.getItem('geminiBTCLast'),
+            geminiVol: parseInt(result.volume.BTC).toFixed(2)
           });
         },
         error => {
@@ -71,6 +72,43 @@ class Main extends Component {
       (result) => {
         if (this.state.binance){
         let binanceBTCLast = this.state.binance
+        localStorage.setItem('binanceBTCLast', binanceBTCLast) 
+      }             
+      }
+    )
+    .then(
+      fetch("/binanceVol")
+      .then(res => res.json())
+      .then(
+        result => {
+          //iteration over the object to separate RSVP and wait list. Using .map
+          let binanceVol = this.state.binanceVol 
+          result.map((result, i) =>{  
+           
+              if (result){
+                return binanceVol.push({volume: parseInt(result.volume).toFixed(2), key: i})
+              }
+          })  
+          this.setState({
+            isLoaded: true,
+          });
+
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+    )
+    .then(
+      
+    )
+    .then(
+      (result) => {
+        if (this.state.binance){
+        let binanceBTCLast = this.state.binance
         console.log(binanceBTCLast)
         localStorage.setItem('binanceBTCLast', binanceBTCLast) 
       }             
@@ -86,6 +124,34 @@ class Main extends Component {
             coinbase: parseInt(result.amount).toFixed(2),
             coinbaseBTCLast: localStorage.getItem('coinbaseBTCLast')
             // coinbaseBTCVol: result.
+          });
+        },
+        error => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+    )
+    .then(
+      (result) => {
+        if (this.state.coinbase){
+          console.log('works')
+          let coinbaseBTCLast = this.state.coinbase
+          localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
+        }      
+      }
+    )
+    .then(
+      fetch("/coinbaseVol")
+      .then(res => res.json())
+      .then(
+        result => {
+          
+          this.setState({
+            isLoaded: true,
+            coinbaseVol: parseInt(result.volume).toFixed(2),
           });
         },
         error => {
@@ -127,7 +193,6 @@ class Main extends Component {
       .then(
         (result) => {
           if (this.state.kraken){
-            console.log('works')
             let krakenBTCLast = (this.state.kraken)
             localStorage.setItem('krakenBTCLast', krakenBTCLast)   
           }
@@ -157,6 +222,22 @@ class Main extends Component {
     )
   };
 
+  sum = (input) => {
+             
+    if (toString.call(input) !== "[object Array]")
+       return false;
+         
+               var total =  0;
+               for(var i=0;i<input.length;i++)
+                 {                  
+                   if(isNaN(input[i])){
+                   continue;
+                    }
+                     total += Number(input[i]);
+                  }
+                return total;
+               }
+
   componentDidMount(){
     this.getPrices()
   }
@@ -183,6 +264,9 @@ showGraph = () => {
 
   render() {
     // let gemini = this.state.gemini
+    for (let [key, value] of Object.entries(this.state.binanceVol)) {
+      console.log(`${key}: ${value}`);
+    }
     
     // console.log(gemini)
       return (
