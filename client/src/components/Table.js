@@ -12,15 +12,26 @@ class Table extends Component {
         }
     }
 
-    componentDidMount(){
-        let values = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
-        let sum = values.reduce((previous, current) => current += previous);
-        let avg = sum / values.length;
-        console.log(avg)
-    }
-
     render(){
+        
+        // let values = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
+        // let sum = values.reduce((previous, current) => current += previous);
+        // let avg = sum / values.length;
+        // console.log(avg)
+        // Create our number formatter.
+        var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
 
+        let geminiVolUSD = formatter.format((this.props.gemini * this.props.geminiVol))
+        let coinbaseVolUSD = formatter.format((this.props.coinbase * this.props.coinbaseVol))
+        let krakenVolUSD = formatter.format((this.props.kraken * this.props.krakenVol))
+        
+
+  
+        formatter.format(2500); /* $2,500.00 */
+        
         let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
         let max = Math.max(...minMax);
         let min = Math.min(...minMax);
@@ -44,6 +55,8 @@ class Table extends Component {
 
         let minerFeePrice = (btcAvr * this.props.minerFastBTC).toFixed(4)
 
+        
+
         return(
 
         <>
@@ -57,6 +70,7 @@ class Table extends Component {
                             <th className='chart-header' scope='col'>Current</th>
                             <th className='chart-header' scope='col'>Last</th>
                             <th className='chart-header' scope='col'>Difference</th>
+                            <th className='chart-header' scope='col'>Volume (24h)</th>
                             {/* <th className='chart-header' scope='col'>Fees</th> */}
                             
                             
@@ -70,6 +84,7 @@ class Table extends Component {
                             <td className='tooltip' >{geminiBTCPerc}%
                             <span className='tooltiptext'>${geminiBTCDiff}</span>
                             </td>
+                            <td className='price-text' >{geminiVolUSD}</td>
                             
                             
                         </tr>
@@ -78,8 +93,9 @@ class Table extends Component {
                             <td className='price-text' >${this.props.binance}</td>
                             <td className='price-text' >${this.props.binanceBTCLast}</td>
                             <td className='tooltip' >{binanceBTCPerc}%
-                            <span className='tooltiptext'>${binanceBTCDiff}</span>
+                            <span className='tooltiptext'>{binanceBTCDiff}</span>
                             </td>
+                            <td className='price-text' >x</td>
                            
                             
                         </tr>
@@ -90,6 +106,7 @@ class Table extends Component {
                             <td className='tooltip' >{coinbaseBTCPerc}%
                             <span className='tooltiptext'>${coinbaseBTCDiff}</span>
                             </td>
+                            <td className='price-text' >{coinbaseVolUSD}</td>
                             
                             
                         </tr>
@@ -100,6 +117,7 @@ class Table extends Component {
                             <td className='tooltip' >{krakenBTCPerc}%
                             <span className='tooltiptext'>${krakenBTCDiff}</span>
                             </td>
+                            <td className='price-text' >{krakenVolUSD}</td>
                             
                         
                         </tr>

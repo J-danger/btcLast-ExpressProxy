@@ -109,7 +109,7 @@ class Main extends Component {
       (result) => {
         if (this.state.binance){
         let binanceBTCLast = this.state.binance
-        console.log(binanceBTCLast)
+       
         localStorage.setItem('binanceBTCLast', binanceBTCLast) 
       }             
       }
@@ -180,7 +180,7 @@ class Main extends Component {
             isLoaded: true,
             kraken: parseInt(result.c[0]).toFixed(2),
             krakenBTCLast: localStorage.getItem('krakenBTCLast'),
-            krakenBTCVol: result.v[1]
+            krakenBTCVol: parseInt(result.v[1]).toFixed(2)
           });
         },
         error => {
@@ -264,9 +264,9 @@ showGraph = () => {
 
   render() {
     // let gemini = this.state.gemini
-    for (let [key, value] of Object.entries(this.state.binanceVol)) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (let [key, value] of Object.entries(this.state.binanceVol)) {
+    //   console.log(`${key}: ${value}`);
+    // }
     
     // console.log(gemini)
       return (
@@ -284,12 +284,15 @@ showGraph = () => {
                     <Table
                       gemini={this.state.gemini}
                       geminiBTCLast={this.state.geminiBTCLast}
+                      geminiVol={this.state.geminiVol}
                       binance={this.state.binance}
                       binanceBTCLast={this.state.binanceBTCLast}
                       coinbase={this.state.coinbase}
                       coinbaseBTCLast={this.state.coinbaseBTCLast}
+                      coinbaseVol={this.state.coinbaseVol}
                       kraken={this.state.kraken}
                       krakenBTCLast={this.state.krakenBTCLast}
+                      krakenVol={this.state.krakenBTCVol}
                       minerFees={this.state.minerFast}
                       minerFastBTC={this.state.minerFastBTC}
                     />
