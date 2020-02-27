@@ -23,7 +23,6 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
-          
           this.setState({
             isLoaded: true,
             gemini: parseInt(result.last).toFixed(2),
@@ -81,31 +80,43 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
-          //iteration over the object to separate RSVP and wait list. Using .map
+          // Volume given in multiple objects, need to extract volume key pairs, push them into an array and calculate the total value
           let binanceVol = this.state.binanceVol 
           result.map((result, i) =>{  
            
               if (result){
-                return binanceVol.push({volume: parseInt(result.volume).toFixed(2), key: i})
+                return binanceVol.push(parseInt(result.volume).toFixed(2))
               }
-          })  
-          this.setState({
-            isLoaded: true,
-          });
-
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
-    )
-    .then(
-      
-    )
-    .then(
+            })  
+            function sum(input){
+             
+              if (toString.call(input) !== "[object Array]")
+                 return false;
+                   
+                         var total =  0;
+                         for(var i=0;i<input.length;i++)
+                           {                  
+                             if(isNaN(input[i])){
+                             continue;
+                              }
+                               total += Number(input[i]);
+                            }
+                          return total;
+                         }
+            this.setState({
+              isLoaded: true,
+              binanceVol: sum(this.state.binanceVol)
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+          )
+          )
+          .then(
       (result) => {
         if (this.state.binance){
         let binanceBTCLast = this.state.binance
@@ -137,7 +148,6 @@ class Main extends Component {
     .then(
       (result) => {
         if (this.state.coinbase){
-          console.log('works')
           let coinbaseBTCLast = this.state.coinbase
           localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
         }      
@@ -165,7 +175,6 @@ class Main extends Component {
     .then(
       (result) => {
         if (this.state.coinbase){
-          console.log('works')
           let coinbaseBTCLast = this.state.coinbase
           localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
         }      
@@ -222,21 +231,6 @@ class Main extends Component {
     )
   };
 
-  sum = (input) => {
-             
-    if (toString.call(input) !== "[object Array]")
-       return false;
-         
-               var total =  0;
-               for(var i=0;i<input.length;i++)
-                 {                  
-                   if(isNaN(input[i])){
-                   continue;
-                    }
-                     total += Number(input[i]);
-                  }
-                return total;
-               }
 
   componentDidMount(){
     this.getPrices()
@@ -262,13 +256,11 @@ showGraph = () => {
   })
   }
 
+  
+
   render() {
-    // let gemini = this.state.gemini
-    // for (let [key, value] of Object.entries(this.state.binanceVol)) {
-    //   console.log(`${key}: ${value}`);
-    // }
-    
-    // console.log(gemini)
+   
+
       return (
         <>
           {this.state.isLoaded ? 
@@ -287,6 +279,7 @@ showGraph = () => {
                       geminiVol={this.state.geminiVol}
                       binance={this.state.binance}
                       binanceBTCLast={this.state.binanceBTCLast}
+                      binanceVol={this.state.binanceVol}
                       coinbase={this.state.coinbase}
                       coinbaseBTCLast={this.state.coinbaseBTCLast}
                       coinbaseVol={this.state.coinbaseVol}

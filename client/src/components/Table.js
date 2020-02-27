@@ -13,34 +13,30 @@ class Table extends Component {
     }
 
     render(){
-        
-        // let values = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
-        // let sum = values.reduce((previous, current) => current += previous);
-        // let avg = sum / values.length;
-        // console.log(avg)
-        // Create our number formatter.
+
+       
+      
+        // console.log(binanceVol)
+   
         var formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
         });
 
         let geminiVolUSD = formatter.format((this.props.gemini * this.props.geminiVol))
+        let binanceVol = formatter.format((this.props.binance * this.props.binanceVol))
         let coinbaseVolUSD = formatter.format((this.props.coinbase * this.props.coinbaseVol))
         let krakenVolUSD = formatter.format((this.props.kraken * this.props.krakenVol))
-        
-
-  
-        formatter.format(2500); /* $2,500.00 */
         
         let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
         let max = Math.max(...minMax);
         let min = Math.min(...minMax);
         let spread = (max - min).toFixed(2);
 
-        let geminiBTCDiff = (this.props.gemini - this.props.geminiBTCLast).toFixed(2)
-        let binanceBTCDiff = (this.props.binance - this.props.binanceBTCLast).toFixed(2)
-        let coinbaseBTCDiff = (this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2)
-        let krakenBTCDiff = (this.props.kraken - this.props.krakenBTCLast).toFixed(2)
+        let geminiBTCDiff = formatter.format((this.props.gemini - this.props.geminiBTCLast).toFixed(2))
+        let binanceBTCDiff = formatter.format((this.props.binance - this.props.binanceBTCLast).toFixed(2))
+        let coinbaseBTCDiff = formatter.format((this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2))
+        let krakenBTCDiff = formatter.format((this.props.kraken - this.props.krakenBTCLast).toFixed(2))
 
         let geminiBTCPerc = (((this.props.gemini - this.props.geminiBTCLast) / this.props.geminiBTCLast) * 100).toFixed(4)
         let binanceBTCPerc = (((this.props.binance - this.props.binanceBTCLast) / this.props.binanceBTCLast) * 100).toFixed(4)
@@ -82,7 +78,7 @@ class Table extends Component {
                             <td className='price-text' >${this.props.gemini}</td>
                             <td className='price-text' >${this.props.geminiBTCLast}</td>
                             <td className='tooltip' >{geminiBTCPerc}%
-                            <span className='tooltiptext'>${geminiBTCDiff}</span>
+                            <span className='tooltiptext'>{geminiBTCDiff}</span>
                             </td>
                             <td className='price-text' >{geminiVolUSD}</td>
                             
@@ -95,7 +91,7 @@ class Table extends Component {
                             <td className='tooltip' >{binanceBTCPerc}%
                             <span className='tooltiptext'>{binanceBTCDiff}</span>
                             </td>
-                            <td className='price-text' >x</td>
+                            <td className='price-text' >{binanceVol}</td>
                            
                             
                         </tr>
@@ -104,7 +100,7 @@ class Table extends Component {
                             <td className='price-text' >${this.props.coinbase}</td>
                             <td className='price-text' >${this.props.coinbaseBTCLast}</td>
                             <td className='tooltip' >{coinbaseBTCPerc}%
-                            <span className='tooltiptext'>${coinbaseBTCDiff}</span>
+                            <span className='tooltiptext'>{coinbaseBTCDiff}</span>
                             </td>
                             <td className='price-text' >{coinbaseVolUSD}</td>
                             
@@ -115,7 +111,7 @@ class Table extends Component {
                             <td className='price-text' >${this.props.kraken}</td>
                             <td className='price-text' >${this.props.krakenBTCLast}</td>
                             <td className='tooltip' >{krakenBTCPerc}%
-                            <span className='tooltiptext'>${krakenBTCDiff}</span>
+                            <span className='tooltiptext'>{krakenBTCDiff}</span>
                             </td>
                             <td className='price-text' >{krakenVolUSD}</td>
                             

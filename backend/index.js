@@ -26,7 +26,7 @@ app.get('/binance', function (req, res) {
 
 
 app.get('/binanceVol', function (req, res) {
-  axios.get('https://api.binance.com/api/v3/ticker/24hr')
+  axios.get('https://api.binance.us/api/v3/ticker/24hr')
   .then(data => res.status(200).send(data.data))
   .catch(err => res.send(err));
 });
