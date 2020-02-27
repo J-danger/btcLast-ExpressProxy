@@ -7,8 +7,7 @@ class Clock extends Component {
         super();
         this.state = { 
             time: new Date(),
-            lastTime: localStorage.getItem('lastTime'),
-            lastDate: localStorage.getItem('lastDate')
+            
         }; 
     }
 
@@ -16,18 +15,11 @@ class Clock extends Component {
         this.update = setInterval(() => {
             this.setState({ time: new Date() });
         }, 1 * 1000);
-        this.setState({            
-            lastDate: localStorage.getItem('lastDate'),
-            lastTime: localStorage.getItem('lastTime'),                
-          });              
-          let { time } = this.state;
-            localStorage.setItem('lastDate', time.toLocaleDateString()) 
-            localStorage.setItem('lastTime', time.toLocaleTimeString()) 
-          
         }
         
         componentWillUnmount() { // delete the interval just before component is removed
             clearInterval(this.update);
+             
     }
     
     render() {

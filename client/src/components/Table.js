@@ -8,12 +8,15 @@ class Table extends Component {
             isLoaded: false,
             error: null,
             lastTime: localStorage.getItem('lastTime'),
-            lastDate: localStorage.getItem('lastDate')           
+            lastDate: localStorage.getItem('lastDate'),
+            time: new Date(),           
         }
     }
 
     render(){
-
+        let { time } = this.state;
+              localStorage.setItem('lastDate', time.toLocaleDateString()) 
+              localStorage.setItem('lastTime', time.toLocaleTimeString())
        
       
         // console.log(binanceVol)
