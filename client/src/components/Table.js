@@ -14,12 +14,10 @@ class Table extends Component {
     }
 
     render(){
+
         let { time } = this.state;
               localStorage.setItem('lastDate', time.toLocaleDateString()) 
               localStorage.setItem('lastTime', time.toLocaleTimeString())
-       
-      
-        // console.log(binanceVol)
    
         var formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -50,9 +48,51 @@ class Table extends Component {
         let binanceInt = parseInt(this.props.binance)
         let coinbaseInt = parseInt(this.props.coinbase)
         let krakenInt = parseInt(this.props.kraken)
+
         let btcAvr = ((geminiInt + binanceInt + coinbaseInt + krakenInt)/4).toFixed(2)
 
         let minerFeePrice = (btcAvr * this.props.minerFastBTC).toFixed(4)
+
+
+        //fees
+            //Gemini
+                // maker & taker
+                // <$10,00 = $0.99
+                // $10.00-$25.00 = $1.49
+                // $25.00-$50.00 = $1.99
+                // $50.00-$200.00 = $2.99
+                // >$200.00 = 1.49%
+                // deposit = free
+                // withdrawal = 0.001 BTC
+                // minimum = 	None?
+
+            //Binance
+                // maker = 0.1000%
+                // taker = 0.1000%
+                // deposit = free
+                // withdrawal = 0.0004 BTC
+                // minimum = 0.001 BTC
+
+            //Coinbase
+                // $0-$10 = $0.99
+                // $10-25 = $1.49
+                // $25-$50 = $1.99
+                // $50-$200 = $2.99
+                // deposit = free
+                // withdrawal = free
+                // minimum = 	None?
+
+            // Kraken
+                // maker = 0.16%
+                // taker = 0.26%
+                // deposit = free
+                // withdrawal = 0.0005 XBT
+                // minimum = 	0.005 XBT
+
+
+
+
+
 
         
 
@@ -70,7 +110,6 @@ class Table extends Component {
                             <th className='chart-header' scope='col'>Last</th>
                             <th className='chart-header' scope='col'>Difference</th>
                             <th className='chart-header' scope='col'>Volume (24h)</th>
-                            {/* <th className='chart-header' scope='col'>Fees</th> */}
                             
                             
                         </tr>
@@ -137,8 +176,8 @@ class Table extends Component {
                         </tr>
                         <tr>
                             <th className='spreadText'>Miner Fee: </th>
-                            <td className='tooltip'>{this.props.minerFastBTC} BTC
-                            <span className='tooltiptext'>${minerFeePrice}</span></td>
+                            <td className='tooltip'>${minerFeePrice} 
+                            <span className='tooltiptext'>{this.props.minerFastBTC} BTC</span></td>
                         </tr>
                         </tbody>
                     </table>
