@@ -24,7 +24,6 @@ class Main extends Component {
       .then(
         result => {
           this.setState({
-            isLoaded: true,
             gemini: parseInt(result.last).toFixed(2),
             geminiBTCLast: localStorage.getItem('geminiBTCLast'),
             geminiVol: parseInt(result.volume.BTC).toFixed(2)
@@ -52,7 +51,6 @@ class Main extends Component {
         result => {
           if (result){
             this.setState({
-              isLoaded: true,
               binance: parseInt(result.price).toFixed(2),
               binanceBTCLast: localStorage.getItem('binanceBTCLast')
             });
@@ -104,7 +102,6 @@ class Main extends Component {
                           return total;
                          }
             this.setState({
-              isLoaded: true,
               binanceVol: sum(this.state.binanceVol)
             });
           },
@@ -120,7 +117,6 @@ class Main extends Component {
       (result) => {
         if (this.state.binance){
         let binanceBTCLast = this.state.binance
-       
         localStorage.setItem('binanceBTCLast', binanceBTCLast) 
       }             
       }
@@ -131,10 +127,8 @@ class Main extends Component {
       .then(
         result => {
           this.setState({
-            isLoaded: true,
             coinbase: parseInt(result.amount).toFixed(2),
             coinbaseBTCLast: localStorage.getItem('coinbaseBTCLast')
-            // coinbaseBTCVol: result.
           });
         },
         error => {
@@ -160,7 +154,6 @@ class Main extends Component {
         result => {
           
           this.setState({
-            isLoaded: true,
             coinbaseVol: parseInt(result.volume).toFixed(2),
           });
         },
@@ -186,7 +179,6 @@ class Main extends Component {
       .then(
         result => {
           this.setState({
-            isLoaded: true,
             kraken: parseInt(result.c[0]).toFixed(2),
             krakenBTCLast: localStorage.getItem('krakenBTCLast'),
             krakenBTCVol: parseInt(result.v[1]).toFixed(2)
@@ -236,25 +228,20 @@ class Main extends Component {
     this.getPrices()
   }
 
-  componentWillUpdate(){
-  //   this.update = setInterval(() => {
-  //     this.getPrices();
-  // }, 60 * 1000);
-  }
 
-showSpread = () => {
-  this.setState({
-    showSpread: true,
-    showGraph: false
-})
-  }
-
-showGraph = () => {
+  showSpread = () => {
     this.setState({
-      showSpread: false,
-      showGraph: true
+      showSpread: true,
+      showGraph: false
   })
-  }
+    }
+
+  showGraph = () => {
+      this.setState({
+        showSpread: false,
+        showGraph: true
+    })
+    }
 
   
 
@@ -272,7 +259,6 @@ showGraph = () => {
               <>
                 {this.state.showSpread ?
                   <div>
-                    {/* <button onClick={this.getPrices()}>Refresh</button> */}
                     <Table
                       gemini={this.state.gemini}
                       geminiBTCLast={this.state.geminiBTCLast}
