@@ -14,7 +14,8 @@ class Table extends Component {
             binanceFeePerc: 0.1000,
             coinbaseFeePerc: 0.5000,
             krakenMakerFeePerc: 0.16,
-            krakenTakerFeePerc: 0.26           
+            krakenTakerFeePerc: 0.26,
+            geminiProfit: 0           
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,66 +50,72 @@ class Table extends Component {
     potentialGeminiProfit = () => {
         let currentPrice = parseInt(this.props.gemini)
         let min = parseInt(this.state.min)
-        let fees = this.state.geminiFee
-        console.log('min', min)
-        console.log('current', currentPrice)
-        console.log('fees', fees)
-        let profit = (((currentPrice - min) - fees))
-        console.log(profit)
-        // console.log(profit)
+        let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
+        let userBTCAmount = parseInt(this.state.userBTCAmount)
+        if (userBTCAmount > 200 || userBTCAmount == 200 ){
+            
+            let fees = this.state.userBTCAmount * 0.0149
+            let profit = (((currentPrice - min) - fees))
+            this.setState({
+                geminiProfit: profit.toFixed(2)
+            });
+        }
+        else {
+            let fees = this.state.geminiFee
+            let profit = (((currentPrice - min) - fees))
+            this.setState({
+                geminiProfit: profit.toFixed(2)
+            });
+        }
+       
+       
     }
 
     geminiFees = () => {
-        if (this.state.userBTCAmount < 10 || this.state.userBTCAmount === 10){
+        let userBTCAmount = parseInt(this.state.userBTCAmount)
+        if (userBTCAmount < 10 || userBTCAmount === 10){
             let geminiFee = 0.99
             this.setState({
                 geminiFee: geminiFee
             });
             console.log(geminiFee)
         }
-        else if (this.state.userBTCAmount > 10 && this.state.userBTCAmount < 25){
+        else if (userBTCAmount > 10 && userBTCAmount < 25){
             let geminiFee = 1.49
             this.setState({
                 geminiFee: geminiFee
             });
             console.log(geminiFee)
         }
-        else if (this.state.userBTCAmount === 25){
+        else if (userBTCAmount === 25){
             let geminiFee = 1.49
             this.setState({
                 geminiFee: geminiFee
             });
             console.log(geminiFee)
         }
-        else if (this.state.userBTCAmount > 25 && this.state.userBTCAmount < 50){
+        else if (userBTCAmount > 25 && userBTCAmount < 50){
             let geminiFee = 1.99
             this.setState({
                 geminiFee: geminiFee
             });
             console.log(geminiFee)
         }
-        else if (this.state.userBTCAmount === 50 ){
+        else if (userBTCAmount=== 50 ){
             let geminiFee = 1.99
             this.setState({
                 geminiFee: geminiFee
             });
             console.log(geminiFee)
         }
-        else if (this.state.userBTCAmount > 50 && this.state.userBTCAmount < 200){
+        else if (userBTCAmount > 50 && userBTCAmount < 200){
             let geminiFee = 2.99
             this.setState({
                 geminiFee: geminiFee
             });
             console.log(geminiFee)
         }
-        else if (this.state.userBTCAmount === 200 ){
-            let geminiFee = 2.99
-            this.setState({
-                geminiFee: geminiFee
-            });
-            console.log(geminiFee)
-        }
-        else if (this.state.userBTCAmount > 200 || this.state.userBTCAmount === 200 ){
+        else if (userBTCAmount > 200 || userBTCAmount === 200 ){
             let geminiFee = 0.0149
             this.setState({
                 geminiFee: geminiFee
@@ -183,6 +190,7 @@ class Table extends Component {
                             <th className='chart-header' scope='col'>Difference</th>
                             <th className='chart-header' scope='col'>Volume (24h)</th>
                             <th className='chart-header' scope='col'>Fees</th>
+                            <th className='chart-header' scope='col'>Profit</th>
                             
                             
                         </tr>
@@ -197,6 +205,7 @@ class Table extends Component {
                             </td>
                             <td className='price-text' >{geminiVolUSD}</td>
                             <td className='price-text' >${this.state.geminiFee}</td>
+                            <td className='price-text' >${this.state.geminiProfit}</td>
                             
                             
                         </tr>
