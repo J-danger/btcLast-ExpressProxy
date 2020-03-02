@@ -9,7 +9,98 @@ class Table extends Component {
             error: null,
             lastTime: localStorage.getItem('lastTime'),
             lastDate: localStorage.getItem('lastDate'),
-            time: new Date(),           
+            time: new Date(),
+            userBTCAmount: 0,
+            binanceFeePerc: 0.1000,
+            coinbaseFeePerc: 0.5000,
+            krakenMakerFeePerc: 0.16,
+            krakenTakerFeePerc: 0.26           
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount(){
+        this.geminiFees()
+        this.minMax()
+        }
+
+    handleChange(event) {
+        this.setState({userBTCAmount: event.target.value});
+        }
+    
+    handleSubmit(event) {
+        this.geminiFees()
+    event.preventDefault();
+                  }
+
+
+    minMax = () => {
+        let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
+        let max = Math.max(...minMax);
+        let min = Math.min(...minMax);
+        this.setState({
+            max: max,
+            min: min
+        });
+    }
+
+    geminiFees = () => {
+        if (this.state.userBTCAmount < 10 || this.state.userBTCAmount === 10){
+            let geminiFee = 0.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount > 10 && this.state.userBTCAmount < 25){
+            let geminiFee = 1.49
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount === 25){
+            let geminiFee = 1.49
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount > 25 && this.state.userBTCAmount < 50){
+            let geminiFee = 1.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount === 50 ){
+            let geminiFee = 1.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount > 50 && this.state.userBTCAmount < 200){
+            let geminiFee = 2.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount === 200 ){
+            let geminiFee = 2.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
+        }
+        else if (this.state.userBTCAmount > 200 || this.state.userBTCAmount === 200 ){
+            let geminiFee = 0.0149
+            this.setState({
+                geminiFee: geminiFee
+            });
+            console.log(geminiFee)
         }
     }
 
@@ -28,11 +119,8 @@ class Table extends Component {
         let binanceVol = formatter.format((this.props.binance * this.props.binanceVol))
         let coinbaseVolUSD = formatter.format((this.props.coinbase * this.props.coinbaseVol))
         let krakenVolUSD = formatter.format((this.props.kraken * this.props.krakenVol))
-        
-        let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
-        let max = Math.max(...minMax);
-        let min = Math.min(...minMax);
-        let spread = (max - min).toFixed(2);
+       
+        let spread = (this.state.max - this.state.min).toFixed(2);
 
         let geminiBTCDiff = formatter.format((this.props.gemini - this.props.geminiBTCLast).toFixed(2))
         let binanceBTCDiff = formatter.format((this.props.binance - this.props.binanceBTCLast).toFixed(2))
@@ -52,54 +140,25 @@ class Table extends Component {
         let btcAvr = ((geminiInt + binanceInt + coinbaseInt + krakenInt)/4).toFixed(2)
 
         let minerFeePrice = (btcAvr * this.props.minerFastBTC).toFixed(4)
-
-
-        //fees
-            //Gemini
-                // maker & taker
-                // <$10,00 = $0.99
-                // $10.00-$25.00 = $1.49
-                // $25.00-$50.00 = $1.99
-                // $50.00-$200.00 = $2.99
-                // >$200.00 = 1.49%
-                // deposit = free
-                // withdrawal = 0.001 BTC
-                // minimum = 	None?
-
-            //Binance
-                // maker = 0.1000%
-                // taker = 0.1000%
-                // deposit = free
-                // withdrawal = 0.0004 BTC
-                // minimum = 0.001 BTC
-
-            //Coinbase
-                // $0-$10 = $0.99
-                // $10-25 = $1.49
-                // $25-$50 = $1.99
-                // $50-$200 = $2.99
-                // deposit = free
-                // withdrawal = free
-                // minimum = 	None?
-
-            // Kraken
-                // maker = 0.16%
-                // taker = 0.26%
-                // deposit = free
-                // withdrawal = 0.0005 XBT
-                // minimum = 	0.005 XBT
-
-
-
-
-
+       
+        // revisit this
+        // let userLimitBTC = (this.state.userLimitBTC * btcAvr)
 
         
-
+               
         return(
 
         <>
             <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
+
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                Trade limit in USD | 
+                <input type="number" value={this.state.userBTCAmount} onChange={this.handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+
             <div className='tables'>
                 <div className='price-table'>
                     <table>
@@ -110,6 +169,7 @@ class Table extends Component {
                             <th className='chart-header' scope='col'>Last</th>
                             <th className='chart-header' scope='col'>Difference</th>
                             <th className='chart-header' scope='col'>Volume (24h)</th>
+                            <th className='chart-header' scope='col'>Fees</th>
                             
                             
                         </tr>
@@ -123,6 +183,7 @@ class Table extends Component {
                             <span className='tooltiptext'>{geminiBTCDiff}</span>
                             </td>
                             <td className='price-text' >{geminiVolUSD}</td>
+                            <td className='price-text' >${this.state.geminiFee}</td>
                             
                             
                         </tr>
@@ -134,6 +195,7 @@ class Table extends Component {
                             <span className='tooltiptext'>{binanceBTCDiff}</span>
                             </td>
                             <td className='price-text' >{binanceVol}</td>
+                            <td className='price-text' >{this.state.binanceFeePerc}%</td>
                            
                             
                         </tr>
@@ -145,6 +207,7 @@ class Table extends Component {
                             <span className='tooltiptext'>{coinbaseBTCDiff}</span>
                             </td>
                             <td className='price-text' >{coinbaseVolUSD}</td>
+                            <td className='price-text' >{this.state.coinbaseFeePerc}%</td>
                             
                             
                         </tr>
@@ -156,6 +219,7 @@ class Table extends Component {
                             <span className='tooltiptext'>{krakenBTCDiff}</span>
                             </td>
                             <td className='price-text' >{krakenVolUSD}</td>
+                            <td className='price-text' >{this.state.krakenMakerFeePerc}-{this.state.krakenTakerFeePerc}%</td>
                             
                         
                         </tr>

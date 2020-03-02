@@ -81,16 +81,13 @@ class Main extends Component {
           // Volume given in multiple objects, need to extract volume key pairs, push them into an array and calculate the total value
           let binanceVol = this.state.binanceVol 
           result.map((result, i) =>{  
-           
               if (result){
                 return binanceVol.push(parseInt(result.volume).toFixed(2))
               }
             })  
             function sum(input){
-             
               if (toString.call(input) !== "[object Array]")
                  return false;
-                   
                          var total =  0;
                          for(var i=0;i<input.length;i++)
                            {                  
