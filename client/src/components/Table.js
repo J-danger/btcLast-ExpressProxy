@@ -102,17 +102,19 @@ class Table extends Component {
     potentialGeminiProfit = () => {
         let currentPrice = parseInt(this.props.gemini)
         let min = parseInt(this.state.min)
-        let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
+        let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(8)
+        console.log(minerFeePrice)
         let userBTCAmount = parseInt(this.state.userBTCAmount)
         if (userBTCAmount > 200 || userBTCAmount == 200 ){
-            let fees = this.state.userBTCAmount * 0.0149
+            let fees = ((this.state.userBTCAmount * 0.0149))
+            console.log(fees)
             let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
             this.setState({
                 geminiProfit: profit.toFixed(2)
             });
         }
         else {
-            let fees = this.state.geminiFee
+            let fees = (this.state.geminiFee) 
             let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
             this.setState({
                 geminiProfit: profit.toFixed(2)
