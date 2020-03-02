@@ -31,6 +31,7 @@ class Table extends Component {
     
     handleSubmit(event) {
         this.geminiFees()
+        this.potentialGeminiProfit()
     event.preventDefault();
                   }
 
@@ -43,6 +44,18 @@ class Table extends Component {
             max: max,
             min: min
         });
+    }
+
+    potentialGeminiProfit = () => {
+        let currentPrice = parseInt(this.props.gemini)
+        let min = parseInt(this.state.min)
+        let fees = this.state.geminiFee
+        console.log('min', min)
+        console.log('current', currentPrice)
+        console.log('fees', fees)
+        let profit = (((currentPrice - min) - fees))
+        console.log(profit)
+        // console.log(profit)
     }
 
     geminiFees = () => {
