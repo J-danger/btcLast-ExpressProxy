@@ -15,7 +15,8 @@ class Table extends Component {
             coinbaseFeePerc: 0.5000,
             krakenMakerFeePerc: 0.16,
             krakenTakerFeePerc: 0.26,
-            geminiProfit: 0           
+            geminiProfit: 0,
+            binanceProfit: 0           
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,6 +34,7 @@ class Table extends Component {
     handleSubmit(event) {
         this.geminiFees()
         this.potentialGeminiProfit()
+        this.binanceProfit()
     event.preventDefault();
                   }
 
@@ -47,7 +49,31 @@ class Table extends Component {
         });
     }
 
-    potentialGeminiProfit = () => {
+    // potentialGeminiProfit = () => {
+    //     let currentPrice = parseInt(this.props.gemini)
+    //     let min = parseInt(this.state.min)
+    //     let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
+    //     let userBTCAmount = parseInt(this.state.userBTCAmount)
+    //     if (userBTCAmount > 200 || userBTCAmount == 200 ){
+            
+    //         let fees = this.state.userBTCAmount * 0.0149
+    //         let profit = (((currentPrice - min) - fees))
+    //         this.setState({
+    //             geminiProfit: profit.toFixed(2)
+    //         });
+    //     }
+    //     else {
+    //         let fees = this.state.geminiFee
+    //         let profit = (((currentPrice - min) - fees))
+    //         this.setState({
+    //             geminiProfit: profit.toFixed(2)
+    //         });
+    //     }
+       
+       
+    // }
+
+        potentialGeminiProfit = () => {
         let currentPrice = parseInt(this.props.gemini)
         let min = parseInt(this.state.min)
         let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
@@ -55,14 +81,17 @@ class Table extends Component {
         if (userBTCAmount > 200 || userBTCAmount == 200 ){
             
             let fees = this.state.userBTCAmount * 0.0149
-            let profit = (((currentPrice - min) - fees))
+            // let profit = (((currentPrice - min) - fees))
+            let profit = (((currentPrice/min) * userBTCAmount) - userBTCAmount)
+           
             this.setState({
                 geminiProfit: profit.toFixed(2)
             });
         }
         else {
             let fees = this.state.geminiFee
-            let profit = (((currentPrice - min) - fees))
+            let profit = (((currentPrice/min) * userBTCAmount) - userBTCAmount)
+            
             this.setState({
                 geminiProfit: profit.toFixed(2)
             });
@@ -122,6 +151,18 @@ class Table extends Component {
             });
             console.log(geminiFee)
         }
+    }
+
+    binanceProfit = () => {
+        let currentPrice = parseInt(this.props.binance)
+        let min = parseInt(this.state.min)
+        let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
+        let userBTCAmount = parseInt(this.state.userBTCAmount)            
+        let fees = (userBTCAmount * .001)
+        let profit = (((currentPrice - min) - fees))
+            this.setState({
+                binanceProfit: profit.toFixed(2)
+            });
     }
 
     render(){
@@ -218,6 +259,7 @@ class Table extends Component {
                             </td>
                             <td className='price-text' >{binanceVol}</td>
                             <td className='price-text' >{this.state.binanceFeePerc}%</td>
+                            <td className='price-text' >${this.state.binanceProfit}</td>
                            
                             
                         </tr>
