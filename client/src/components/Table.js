@@ -57,6 +57,7 @@ class Table extends Component {
         });
     }
 
+
     gemini = () => {
         let a = parseInt(this.props.gemini)
         let b = 'Gemini'
@@ -274,12 +275,12 @@ class Table extends Component {
         <>
             <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
 
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                Trade limit in USD | 
-                <input type="number" value={this.state.userBTCAmount} onChange={this.handleChange} />
+            <form className='userInput' onSubmit={this.handleSubmit}>
+                <label className='formLabel'>
+                Trade limit in USD  
+                <input className='formInput' type='number' value={this.state.userBTCAmount} onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit" />
+                <input className='formSubmit' type='submit' value='Submit' />
             </form>
 
             <div className='tables'>
