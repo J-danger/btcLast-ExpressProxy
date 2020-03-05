@@ -276,7 +276,14 @@ class Main extends Component {
                 :  <p>Placeholder for graph</p> }
               </>
           </>
-              : <p className='loading'>Loading...</p> }
+              : <>
+              <nav className='navbar'>
+                <button onClick={this.showSpread} className='navButton'>Home</button>
+                <button onClick={this.showGraph} className='navButton'>Graph</button>
+              </nav>
+              <p className='loading'>Loading...</p> 
+
+              </>}
         </>
       )
   }
