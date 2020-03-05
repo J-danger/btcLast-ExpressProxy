@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import User from './User'
 import './Table.css'
 
+
 class Table extends Component {
+    
     constructor(props){
         super(props)
         this.state = {
@@ -230,6 +233,7 @@ class Table extends Component {
         }           
     }
 
+
     render(){
 
         let { time } = this.state;
@@ -269,14 +273,15 @@ class Table extends Component {
        
         // revisit this
         // let userLimitBTC = (this.state.userLimitBTC * btcAvr)
-
+        
         
                
         return(
 
-        <>
-            <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
-
+        <>  
+        
+                <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
+          
             <form className='userInput' onSubmit={this.handleSubmit}>
                 <label className='formLabel'>
                 Trade limit in USD  
