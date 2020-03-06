@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 5000
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join('client/build')));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'production') {
