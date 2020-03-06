@@ -6,16 +6,12 @@ const axios = require('axios').default;
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-// if (process.env.NODE_ENV === 'production') {
-//   // Set static folder
-//   app.use(express.static('client/public'));
-//   app.get('*', function (req, res) {
-//     const index = path.join(__dirname, 'build', 'index.html');
-//     res.sendFile(index);
+app.use(express.static(path.join(__dirname, 'client')));
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'client', 'index.html'));
 //   });
-// }
 
-console.log(__dirname)
+
 
 // // GET request for event data
 app.get('/gemini', function (req, res) {
