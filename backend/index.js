@@ -8,8 +8,10 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res){
-  res.sendFile('index.html', { root: __dirname});
+  res.sendFile('index.html', { root: __dirname.replace('backend', 'client')});
 });
+
+console.log(__dirname)
 
 // // GET request for event data
 app.get('/gemini', function (req, res) {
