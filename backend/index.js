@@ -7,10 +7,9 @@ const bodyParser = require('body-parser');
 app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 
-app.get('*', function (req, res) {
-  const index = path.join('client', 'index.html');
-  res.sendFile(index);
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 // // GET request for event data
 app.get('/gemini', function (req, res) {
