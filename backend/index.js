@@ -7,9 +7,16 @@ const bodyParser = require('body-parser');
 app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.json());
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join('index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  // Exprees will serve up production assets
+  app.use(express.static('client/src'));
+
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'src', 'index.html'));
+  });
+}
 
 
 // // GET request for event data
