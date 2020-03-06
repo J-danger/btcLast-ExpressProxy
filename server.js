@@ -4,18 +4,16 @@ const app = express();
 const PORT = process.env.PORT || 5000
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
-app.use(express.static(path.join('client/public')));
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-
-  app.get('*', function (req, res) {
-    const index = path.join(__dirname, 'build', 'index.html');
-    res.sendFile(index);
-  });
-}
+// if (process.env.NODE_ENV === 'production') {
+//   // Set static folder
+//   app.use(express.static('client/public'));
+//   app.get('*', function (req, res) {
+//     const index = path.join(__dirname, 'build', 'index.html');
+//     res.sendFile(index);
+//   });
+// }
 
 console.log(__dirname)
 
