@@ -4,12 +4,16 @@ const app = express();
 const PORT = process.env.PORT || 5000
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
-app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res){
-  res.sendFile('index.html', { root: __dirname.replace('backend', 'client')});
-});
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')))
+  // Handle React routing, return all requests to React app
+  app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+  })
+}
 
 console.log(__dirname)
 
