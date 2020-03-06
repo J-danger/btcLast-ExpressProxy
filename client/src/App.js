@@ -14,7 +14,7 @@ function App() {
   const { loading } = useAuth0();
 
   if (loading) {
-    return <div>wtf...</div>;
+    return <div>Authenticating...</div>;
   }
 
   return (
