@@ -4,14 +4,15 @@ const app = express();
 const PORT = process.env.PORT || 5000
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
+app.use(express.static(path.join(__dirname)));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
 
-  app.get('*', (request, response) => {
-    response.sendFile(path.resolve('client', 'build', 'index.html'));
+  app.get('*', (req, res) => {
+    res.sendFile('index.html', { root: 'client' });
   });
 }
 
