@@ -9,8 +9,7 @@
     "server": "node server",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node server",
-    "build": "cd client && npm install && npm run build",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "build": "cd client && npm install && npm run build"
   },
   "author": "Steve Howe",
   "license": "ISC",
