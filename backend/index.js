@@ -4,12 +4,12 @@ const app = express();
 const PORT = process.env.PORT || 5000
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 
-app.get('*', function (req, res) {
-  res.sendFile("index.html", { root: path.join(__dirname, 'public') })
-})
+// app.get('*', function (req, res) {
+//   res.sendFile("index.html", { root: path.join('client', 'public') })
+// })
 
 // // GET request for event data
 app.get('/gemini', function (req, res) {
