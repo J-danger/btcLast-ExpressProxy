@@ -46,7 +46,6 @@ class Table extends Component {
         this.binanceProfit()
         this.coinbaseProfit()
         this.krakenProfit()
-        this.minMax()
         event.preventDefault();
                   }
 
@@ -57,7 +56,8 @@ class Table extends Component {
         let min = Math.min(...minMax);
         this.setState({
             max: max,
-            min: min
+            min: min,
+            isLoaded: true
         });
     }
 
