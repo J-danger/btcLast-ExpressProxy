@@ -46,6 +46,7 @@ class Table extends Component {
         this.binanceProfit()
         this.coinbaseProfit()
         this.krakenProfit()
+        this.minMax()
         event.preventDefault();
                   }
 
