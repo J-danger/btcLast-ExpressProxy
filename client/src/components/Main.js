@@ -84,6 +84,9 @@ class Main extends Component {
               if (result){
                 return binanceVol.push(parseInt(result.volume).toFixed(2))
               }
+              else {
+                return null
+              }
             })  
             function sum(input){
               if (toString.call(input) !== "[object Array]")
