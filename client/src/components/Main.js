@@ -40,7 +40,10 @@ class Main extends Component {
         (result) => {
           if (this.state.gemini){
             let geminiBTCLast = this.state.gemini
-            localStorage.setItem('geminiBTCLast', geminiBTCLast)              
+            localStorage.setItem('geminiBTCLast', geminiBTCLast)
+            this.setState({
+              isLoaded: true,              
+            });              
           }
         }
       )
