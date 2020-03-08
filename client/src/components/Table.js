@@ -70,6 +70,7 @@ class Table extends Component {
         this.setState({
             gemini: d
         });
+        this.minMax()
     }
 
     binance = () => {
@@ -80,6 +81,7 @@ class Table extends Component {
         this.setState({
             binance: d
         });
+        this.minMax()
     }
 
     coinbase = () => {
@@ -90,6 +92,7 @@ class Table extends Component {
         this.setState({
             coinbase: d
         });
+        this.minMax()
     }
 
     kraken = () => {
@@ -101,6 +104,7 @@ class Table extends Component {
         this.setState({
             kraken: e
         });
+        this.minMax()
     }
 
     potentialGeminiProfit = () => {
