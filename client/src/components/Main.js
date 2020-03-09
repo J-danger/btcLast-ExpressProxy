@@ -70,7 +70,7 @@ class Main extends Component {
     )
     .then(
       (result) => {
-        if (this.state.binance){
+        if (result){
         let binanceBTCLast = this.state.binance
         localStorage.setItem('binanceBTCLast', binanceBTCLast) 
       }             
@@ -118,7 +118,7 @@ class Main extends Component {
           )
           .then(
       (result) => {
-        if (this.state.binance){
+        if (result){
         let binanceBTCLast = this.state.binance
         localStorage.setItem('binanceBTCLast', binanceBTCLast) 
       }             
@@ -144,7 +144,7 @@ class Main extends Component {
     )
     .then(
       (result) => {
-        if (this.state.coinbase){
+        if (result){
           let coinbaseBTCLast = this.state.coinbase
           localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
         }      

@@ -261,7 +261,7 @@ class Table extends Component {
         let krakenVolUSD = formatter.format((this.props.kraken * this.props.krakenVol))
        
         let spread = (this.state.max - this.state.min).toFixed(2);
-
+        console.log(spread)
         let geminiBTCDiff = formatter.format((this.props.gemini - this.props.geminiBTCLast).toFixed(2))
         let binanceBTCDiff = formatter.format((this.props.binance - this.props.binanceBTCLast).toFixed(2))
         let coinbaseBTCDiff = formatter.format((this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2))
