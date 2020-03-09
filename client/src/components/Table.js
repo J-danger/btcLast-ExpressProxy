@@ -32,10 +32,11 @@ class Table extends Component {
         this.binance()
         this.coinbase()
         this.kraken()
-        this.minMax()
         }
 
-    
+    componentWillReceiveProps(){
+        this.minMax()
+    }
   
 
     handleChange(event) {
