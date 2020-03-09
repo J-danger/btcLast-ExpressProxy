@@ -33,7 +33,7 @@ class Table extends Component {
         this.coinbase()
         this.kraken()
         }
-        
+
     componentWillReceiveProps(){
         this.minMax()
     }
@@ -65,7 +65,7 @@ class Table extends Component {
             this.setState({
                 max: max,
                 min: min,
-                           
+                isLoaded: true              
             });
        
     }
@@ -77,8 +77,7 @@ class Table extends Component {
         let c = this.state.geminiFee
         let d = {a: a, b: b, c: c}
         this.setState({
-            gemini: d,
-            isLoaded: true
+            gemini: d
         });
         
     }
@@ -89,8 +88,7 @@ class Table extends Component {
         let c = .001
         let d = {a: a, b: b, c: c}
         this.setState({
-            binance: d,
-            isLoaded: true
+            binance: d            
         });
        
     }
@@ -101,8 +99,7 @@ class Table extends Component {
         let c = .005
         let d = {a: a, b: b, c: c}
         this.setState({
-            coinbase: d,
-            isLoaded: true
+            coinbase: d
         });
         
     }
@@ -114,8 +111,7 @@ class Table extends Component {
         let d = .0026
         let e = {a: a, b: b, c: c, d: d}
         this.setState({
-            kraken: e,
-            isLoaded: true
+            kraken: e            
         });
         
     }
