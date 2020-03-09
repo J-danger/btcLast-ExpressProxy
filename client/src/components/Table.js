@@ -29,15 +29,20 @@ class Table extends Component {
 
     componentDidMount(){
         this.geminiFees()
-        this.minMax()
         this.binance()
         this.coinbase()
         this.kraken()
         }
+        
+    componentWillReceiveProps(){
+        this.minMax()
+    }
   
 
     handleChange(event) {
         this.setState({userBTCAmount: event.target.value});
+        this.minMax()
+        event.preventDefault();
         }
     
     handleSubmit(event) {
@@ -51,14 +56,18 @@ class Table extends Component {
 
 
     minMax = () => {
-        let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
-        let max = Math.max(...minMax);
-        let min = Math.min(...minMax);
-        this.setState({
-            max: max,
-            min: min,
-            isLoaded: true
-        });
+        
+
+            console.log([this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken])
+            let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
+            let max = Math.max(...minMax);
+            let min = Math.min(...minMax);
+            this.setState({
+                max: max,
+                min: min,
+                           
+            });
+       
     }
 
 
@@ -68,9 +77,10 @@ class Table extends Component {
         let c = this.state.geminiFee
         let d = {a: a, b: b, c: c}
         this.setState({
-            gemini: d
+            gemini: d,
+            isLoaded: true
         });
-        this.minMax()
+        
     }
 
     binance = () => {
@@ -79,9 +89,10 @@ class Table extends Component {
         let c = .001
         let d = {a: a, b: b, c: c}
         this.setState({
-            binance: d
+            binance: d,
+            isLoaded: true
         });
-        this.minMax()
+       
     }
 
     coinbase = () => {
@@ -90,9 +101,10 @@ class Table extends Component {
         let c = .005
         let d = {a: a, b: b, c: c}
         this.setState({
-            coinbase: d
+            coinbase: d,
+            isLoaded: true
         });
-        this.minMax()
+        
     }
 
     kraken = () => {
@@ -102,9 +114,10 @@ class Table extends Component {
         let d = .0026
         let e = {a: a, b: b, c: c, d: d}
         this.setState({
-            kraken: e
+            kraken: e,
+            isLoaded: true
         });
-        this.minMax()
+        
     }
 
     potentialGeminiProfit = () => {
