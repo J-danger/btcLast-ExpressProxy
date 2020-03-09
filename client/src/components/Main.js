@@ -151,6 +151,14 @@ class Main extends Component {
       }
     )
     .then(
+      (result) => {
+        if (this.state.coinbase){
+          let coinbaseBTCLast = this.state.coinbase
+          localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
+        }      
+      }
+    )
+    .then(
       fetch("/coinbaseVol")
       .then(res => res.json())
       .then(
@@ -167,14 +175,6 @@ class Main extends Component {
           });
         }
       )
-    )
-    .then(
-      (result) => {
-        if (this.state.coinbase){
-          let coinbaseBTCLast = this.state.coinbase
-          localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
-        }      
-      }
     )
     .then(
       fetch("/kraken")
