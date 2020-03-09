@@ -32,11 +32,10 @@ class Table extends Component {
         this.binance()
         this.coinbase()
         this.kraken()
+        this.minMax()
         }
 
-    componentWillReceiveProps(){
-        this.minMax()
-    }
+    
   
 
     handleChange(event) {
@@ -56,9 +55,6 @@ class Table extends Component {
 
 
     minMax = () => {
-        
-
-            console.log([this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken])
             let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
             let max = Math.max(...minMax);
             let min = Math.min(...minMax);
@@ -67,7 +63,6 @@ class Table extends Component {
                 min: min,
                 isLoaded: true              
             });
-       
     }
 
 
