@@ -28,23 +28,14 @@ class Main extends Component {
             geminiBTCLast: localStorage.getItem('geminiBTCLast'),
             geminiVol: parseInt(result.volume.BTC).toFixed(2)
           });
+          let geminiBTCLast = this.state.gemini
+          localStorage.setItem('geminiBTCLast', geminiBTCLast)
         },
         error => {
           this.setState({
             isLoaded: true,
             error
           });
-        }
-      )
-      .then(
-        (result) => {
-          if (this.state.gemini){
-            let geminiBTCLast = this.state.gemini
-            localStorage.setItem('geminiBTCLast', geminiBTCLast)
-            this.setState({
-              isLoaded: true,              
-            });              
-          }
         }
       )
     .then(
@@ -52,13 +43,13 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
-          if (result){
             this.setState({
               binance: parseInt(result.price).toFixed(2),
               binanceBTCLast: localStorage.getItem('binanceBTCLast')
             });
-
-          }
+            let binanceBTCLast = this.state.binance
+            localStorage.setItem('binanceBTCLast', binanceBTCLast)
+         
         },
         error => {
           this.setState({
@@ -67,14 +58,6 @@ class Main extends Component {
           });
         }
       )
-    )
-    .then(
-      (result) => {
-        if (result){
-        let binanceBTCLast = this.state.binance
-        localStorage.setItem('binanceBTCLast', binanceBTCLast) 
-      }             
-      }
     )
     .then(
       fetch("/binanceVol")
@@ -113,17 +96,9 @@ class Main extends Component {
               isLoaded: true,
               error
             });
-          }
-          )
-          )
-          .then(
-      (result) => {
-        if (result){
-        let binanceBTCLast = this.state.binance
-        localStorage.setItem('binanceBTCLast', binanceBTCLast) 
-      }             
-      }
-    )
+        }
+      )
+    )   
     .then(
       fetch("/coinbase")
       .then(res => res.json())
@@ -133,6 +108,8 @@ class Main extends Component {
             coinbase: parseInt(result.amount).toFixed(2),
             coinbaseBTCLast: localStorage.getItem('coinbaseBTCLast')
           });
+          let coinbaseBTCLast = this.state.coinbase
+          localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast) 
         },
         error => {
           this.setState({
@@ -141,14 +118,6 @@ class Main extends Component {
           });
         }
       )
-    )
-    .then(
-      (result) => {
-        if (result){
-          let coinbaseBTCLast = this.state.coinbase
-          localStorage.setItem('coinbaseBTCLast', coinbaseBTCLast)     
-        }      
-      }
     )
     .then(
       fetch("/coinbaseVol")
@@ -177,20 +146,14 @@ class Main extends Component {
             krakenBTCLast: localStorage.getItem('krakenBTCLast'),
             krakenBTCVol: parseInt(result.v[1]).toFixed(2)
           });
+          let krakenBTCLast = (this.state.kraken)
+          localStorage.setItem('krakenBTCLast', krakenBTCLast) 
         },
         error => {
           this.setState({
             isLoaded: true,
             error
           });
-        }
-      )
-      .then(
-        (result) => {
-          if (this.state.kraken){
-            let krakenBTCLast = (this.state.kraken)
-            localStorage.setItem('krakenBTCLast', krakenBTCLast)   
-          }        
         }
       )
     )
