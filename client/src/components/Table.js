@@ -32,16 +32,14 @@ class Table extends Component {
         this.binance()
         this.coinbase()
         this.kraken()
+        this.minMax()
         }
 
-    componentWillReceiveProps(){
-        this.minMax()
-    }
+ 
   
 
     handleChange(event) {
         this.setState({userBTCAmount: event.target.value});
-        this.minMax()
         event.preventDefault();
         }
     
@@ -56,6 +54,7 @@ class Table extends Component {
 
 
     minMax = () => {
+        if (!this.state.isLoaded){
             let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
             let max = Math.max(...minMax);
             let min = Math.min(...minMax);
@@ -64,6 +63,10 @@ class Table extends Component {
                 min: min,
                 isLoaded: true              
             });
+        }
+        else {
+            this.minMax()
+        }
     }
 
 
@@ -280,12 +283,7 @@ class Table extends Component {
         let btcAvr = ((geminiInt + binanceInt + coinbaseInt + krakenInt)/4).toFixed(2)
 
         let minerFeePrice = (btcAvr * this.props.minerFastBTC).toFixed(4)
-       
-        // revisit this
-        // let userLimitBTC = (this.state.userLimitBTC * btcAvr)
         
-        
-               
         return(
 
         <>  
