@@ -49,6 +49,7 @@ class Table extends Component {
         this.binanceProfit()
         this.coinbaseProfit()
         this.krakenProfit()
+        this.minMax()
         event.preventDefault();
                   }
 
@@ -63,6 +64,56 @@ class Table extends Component {
                 min: min,
                 isLoaded: true              
             });
+            if (max == this.props.gemini){
+                this.setState({
+                   makerFee: this.state.geminiFee,
+                   makerExchange: 'gemini'             
+                });
+            }
+            else if (max == this.props.binance){
+                this.setState({
+                    makerFee: this.state.binanceFeePerc,
+                    makerExchange: 'binance'              
+                });
+            }
+            else if (max == this.props.coinbase){
+                this.setState({
+                    makerFee: this.state.coinbaseFeePerc,
+                    makerExchange: 'coinbase'              
+                });
+            }
+            else if (max == this.props.kraken){
+                this.setState({
+                    makerFee: this.state.krakenMakerFeePerc,
+                    makerExchange: 'kraken'              
+                });
+            }
+
+            if (min == this.props.gemini){
+                this.setState({
+                   takerFee: this.state.geminiFee,
+                   takerExchange: 'gemini'            
+                });
+            }
+            else if (min == this.props.binance){
+                this.setState({
+                    takerFee: this.state.binanceFeePerc,
+                    takerExchange: 'binance'                
+                });
+            }
+            else if (min == this.props.coinbase){
+                this.setState({
+                    takerFee: this.state.coinbaseFeePerc,
+                    takerExchange: 'coinbase'                
+                });
+            }
+            else if (min == this.props.kraken){
+                this.setState({
+                    takerFee: this.state.krakenTakerFeePerc,
+                    takerExchange: 'kraken'                
+                });
+            }
+
         }
         else {
             this.minMax()
