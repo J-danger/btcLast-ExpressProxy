@@ -14,10 +14,10 @@ class Table extends Component {
             lastDate: localStorage.getItem('lastDate'),
             time: new Date(),
             userBTCAmount: 0,
-            binanceFeePerc: 0.1000,
-            coinbaseFeePerc: 0.5000,
-            krakenMakerFeePerc: 0.16,
-            krakenTakerFeePerc: 0.26,
+            binanceFeePerc: 0.001,
+            coinbaseFeePerc: 0.005,
+            krakenMakerFeePerc: 0.0016,
+            krakenTakerFeePerc: 0.0026,
             geminiProfit: 0,
             binanceProfit: 0,
             coinbaseProfit: 0,
@@ -29,14 +29,10 @@ class Table extends Component {
 
     componentDidMount(){
         this.geminiFees()
-        this.binance()
-        this.coinbase()
-        this.kraken()
         this.minMax()
+        this.maker()
+        
         }
-
- 
-  
 
     handleChange(event) {
         this.setState({userBTCAmount: event.target.value});
@@ -49,9 +45,55 @@ class Table extends Component {
         this.binanceProfit()
         this.coinbaseProfit()
         this.krakenProfit()
-        this.minMax()
         event.preventDefault();
                   }
+
+                      
+    geminiFees = () => {
+        let userBTCAmount = parseInt(this.state.userBTCAmount)
+        if (userBTCAmount < 10 || userBTCAmount === 10){
+            let geminiFee = 0.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+        else if (userBTCAmount > 10 && userBTCAmount < 25){
+            let geminiFee = 1.49
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+        else if (userBTCAmount === 25){
+            let geminiFee = 1.49
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+        else if (userBTCAmount > 25 && userBTCAmount < 50){
+            let geminiFee = 1.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+        else if (userBTCAmount === 50 ){
+            let geminiFee = 1.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+        else if (userBTCAmount > 50 && userBTCAmount < 200){
+            let geminiFee = 2.99
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+        else if (userBTCAmount > 200 || userBTCAmount === 200 ){
+            let geminiFee = 0.0149
+            this.setState({
+                geminiFee: geminiFee
+            });
+        }
+    }
 
 
     minMax = () => {
@@ -59,36 +101,6 @@ class Table extends Component {
             let minMax = [this.props.gemini, this.props.binance, this.props.coinbase, this.props.kraken];
             let max = Math.max(...minMax);
             let min = Math.min(...minMax);
-            this.setState({
-                max: max,
-                min: min,
-                isLoaded: true              
-            });
-            if (max == this.props.gemini){
-                this.setState({
-                   makerFee: this.state.geminiFee,
-                   makerExchange: 'gemini'             
-                });
-            }
-            else if (max == this.props.binance){
-                this.setState({
-                    makerFee: this.state.binanceFeePerc,
-                    makerExchange: 'binance'              
-                });
-            }
-            else if (max == this.props.coinbase){
-                this.setState({
-                    makerFee: this.state.coinbaseFeePerc,
-                    makerExchange: 'coinbase'              
-                });
-            }
-            else if (max == this.props.kraken){
-                this.setState({
-                    makerFee: this.state.krakenMakerFeePerc,
-                    makerExchange: 'kraken'              
-                });
-            }
-
             if (min == this.props.gemini){
                 this.setState({
                    takerFee: this.state.geminiFee,
@@ -103,7 +115,7 @@ class Table extends Component {
             }
             else if (min == this.props.coinbase){
                 this.setState({
-                    takerFee: this.state.coinbaseFeePerc,
+                    takerFee: this.state.coinbaseFeePerc,                
                     takerExchange: 'coinbase'                
                 });
             }
@@ -113,154 +125,144 @@ class Table extends Component {
                     takerExchange: 'kraken'                
                 });
             }
-
+            if (this.state.max === this.props.gemini){
+                this.setState({
+                   makerFee: this.state.geminiFee,
+                   makerExchange: 'gemini'             
+                });
+            }
+            else if (this.state.max === this.props.binance){
+                this.setState({
+                    makerFee: this.state.binanceFeePerc,
+                    makerExchange: 'binance'              
+                });
+            }
+            else if (this.state.max === this.props.coinbase){
+                this.setState({
+                    makerFee: this.state.coinbaseFeePerc,
+                    makerExchange: 'coinbase'              
+                });
+            }
+            else if (this.state.max === this.props.kraken){
+                this.setState({
+                    makerFee: this.state.krakenMakerFeePerc,
+                    makerExchange: 'kraken'              
+                });
+            }
+            this.setState({
+                max: max,
+                min: min,
+                isLoaded: true              
+            });
         }
         else {
             this.minMax()
         }
     }
 
-
-    gemini = () => {
-        let a = parseInt(this.props.gemini)
-        let b = 'Gemini'
-        let c = this.state.geminiFee
-        let d = {a: a, b: b, c: c}
-        this.setState({
-            gemini: d
-        });
-        
+    maker = () => {
+        // if (this.state.max === this.props.gemini){
+        //     this.setState({
+        //        makerFee: this.state.geminiFee,
+        //        makerExchange: 'gemini'             
+        //     });
+        // }
+        // else if (this.state.max === this.props.binance){
+        //     this.setState({
+        //         makerFee: this.state.binanceFeePerc,
+        //         makerExchange: 'binance'              
+        //     });
+        // }
+        // else if (this.state.max === this.props.coinbase){
+        //     this.setState({
+        //         makerFee: this.state.coinbaseFeePerc,
+        //         makerExchange: 'coinbase'              
+        //     });
+        // }
+        // else if (this.state.max === this.props.kraken){
+        //     this.setState({
+        //         makerFee: this.state.krakenMakerFeePerc,
+        //         makerExchange: 'kraken'              
+        //     });
+        // }
     }
 
-    binance = () => {
-        let a = parseInt(this.props.binance)
-        let b = 'Binance'
-        let c = .001
-        let d = {a: a, b: b, c: c}
-        this.setState({
-            binance: d            
-        });
-       
+    taker = () => {
+        // let min = this.state.min
+        // if (min == this.props.gemini){
+        //     this.setState({
+        //        takerFee: this.state.geminiFee,
+        //        takerExchange: 'gemini'            
+        //     });
+        // }
+        // else if (min == this.props.binance){
+        //     this.setState({
+        //         takerFee: this.state.binanceFeePerc,
+        //         takerExchange: 'binance'                
+        //     });
+        // }
+        // else if (min == this.props.coinbase){
+        //     this.setState({
+        //         takerFee: this.state.coinbaseFeePerc,                
+        //         takerExchange: 'coinbase'                
+        //     });
+        // }
+        // else if (min == this.props.kraken){
+        //     this.setState({
+        //         takerFee: this.state.krakenTakerFeePerc,
+        //         takerExchange: 'kraken'                
+        //     });
+        // }
     }
 
-    coinbase = () => {
-        let a = parseInt(this.props.coinbase)
-        let b = 'Coinbase'
-        let c = .005
-        let d = {a: a, b: b, c: c}
-        this.setState({
-            coinbase: d
-        });
-        
-    }
-
-    kraken = () => {
-        let a = parseInt(this.props.kraken)
-        let b = 'Kraken'
-        let c = .0016
-        let d = .0026
-        let e = {a: a, b: b, c: c, d: d}
-        this.setState({
-            kraken: e            
-        });
-        
-    }
 
     potentialGeminiProfit = () => {
         let currentPrice = parseInt(this.props.gemini)
         let min = parseInt(this.state.min)
-        let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(8)
-        console.log(minerFeePrice)
+        let minerFeePrice = parseInt(currentPrice * this.props.minerFastBTC).toFixed(4)
         let userBTCAmount = parseInt(this.state.userBTCAmount)
         if (userBTCAmount > 200 || userBTCAmount == 200 ){
-            let fees = ((this.state.userBTCAmount * 0.0149))
-            console.log(fees)
-            let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
+            let takerFees = (userBTCAmount * this.state.takerFee)
+            console.log('gemini taker fee', takerFees) 
+            let makerFees = ((this.state.userBTCAmount * 0.0149))
+            let profit = (((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees))
             this.setState({
-                geminiProfit: profit.toFixed(2)
+                geminiProfit: profit.toFixed(2),
+                test1: minerFeePrice,
+                geminiTakerTest: takerFees,
+                geminiMakerTest: makerFees
+
             });
         }
         else {
-            let fees = (this.state.geminiFee) 
-            let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
+            
+            let makerFees = (this.state.geminiFee)
+            let takerFees = (userBTCAmount * this.state.takerFee)
+            console.log('gemini taker fee', takerFees) 
+            let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
             this.setState({
-                geminiProfit: profit.toFixed(2)
+                geminiProfit: profit.toFixed(2),
+                geminiTakerTest: takerFees,
+                geminiMakerTest: makerFees
             });
         }
        
        
     }
 
-    geminiFees = () => {
-        let userBTCAmount = parseInt(this.state.userBTCAmount)
-        if (userBTCAmount < 10 || userBTCAmount === 10){
-            let geminiFee = 0.99
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-        else if (userBTCAmount > 10 && userBTCAmount < 25){
-            let geminiFee = 1.49
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-        else if (userBTCAmount === 25){
-            let geminiFee = 1.49
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-        else if (userBTCAmount > 25 && userBTCAmount < 50){
-            let geminiFee = 1.99
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-        else if (userBTCAmount=== 50 ){
-            let geminiFee = 1.99
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-        else if (userBTCAmount > 50 && userBTCAmount < 200){
-            let geminiFee = 2.99
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-        else if (userBTCAmount > 200 || userBTCAmount === 200 ){
-            let geminiFee = 0.0149
-            this.setState({
-                geminiFee: geminiFee
-            }, () => {
-                this.gemini();
-            });
-        }
-    }
 
     binanceProfit = () => {
         let currentPrice = parseInt(this.props.binance)
         let min = parseInt(this.state.min)
         let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
         let userBTCAmount = parseInt(this.state.userBTCAmount)            
-        let fees = (userBTCAmount * .001)
-        let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
+        let makerFees = (userBTCAmount * .001)
+        let takerFees = (userBTCAmount * this.state.takerFee)
+        console.log('binance taker fee', takerFees)
+        let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
             this.setState({
                 binanceProfit: profit.toFixed(2),
-                binanceFees: fees
+                binanceFees: makerFees
             });
     }
 
@@ -269,8 +271,10 @@ class Table extends Component {
         let min = parseInt(this.state.min)
         let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
         let userBTCAmount = parseInt(this.state.userBTCAmount)            
-        let fees = (userBTCAmount * .005)
-        let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
+        let makerFees = (userBTCAmount * .005)
+        let takerFees = (userBTCAmount * this.state.takerFee)
+        console.log('coinbase taker fee', takerFees)
+        let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
             this.setState({
                 coinbaseProfit: profit.toFixed(2)
             });
@@ -281,20 +285,15 @@ class Table extends Component {
         let min = parseInt(this.state.min)
         let minerFeePrice = (currentPrice * this.props.minerFastBTC).toFixed(4)
         let userBTCAmount = parseInt(this.state.userBTCAmount) 
-        if (currentPrice > min){
-            let fees = (userBTCAmount * .0016)
-            let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
-                this.setState({
-                    krakenProfit: profit.toFixed(2)
-                });
-        }
-        else {
-            let fees = (userBTCAmount * .0026)
-            let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - fees)
-                this.setState({
-                    krakenProfit: profit.toFixed(2)
-                });
-        }           
+        let makerFees = (userBTCAmount * .0016)
+        let takerFees = (userBTCAmount * this.state.takerFee)
+        console.log('kraken taker fee', takerFees)
+        let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
+            this.setState({
+                krakenProfit: profit.toFixed(2)
+            });
+        
+           
     }
 
 
@@ -315,7 +314,7 @@ class Table extends Component {
         let krakenVolUSD = formatter.format((this.props.kraken * this.props.krakenVol))
        
         let spread = (this.state.max - this.state.min).toFixed(2);
-        console.log(spread)
+       
         let geminiBTCDiff = formatter.format((this.props.gemini - this.props.geminiBTCLast).toFixed(2))
         let binanceBTCDiff = formatter.format((this.props.binance - this.props.binanceBTCLast).toFixed(2))
         let coinbaseBTCDiff = formatter.format((this.props.coinbase - this.props.coinbaseBTCLast).toFixed(2))
