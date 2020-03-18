@@ -125,30 +125,31 @@ class Table extends Component {
                     takerExchange: 'kraken'                
                 });
             }
-            if (this.state.max === this.props.gemini){
+            if (max == this.props.gemini){
                 this.setState({
                    makerFee: this.state.geminiFee,
                    makerExchange: 'gemini'             
                 });
             }
-            else if (this.state.max === this.props.binance){
+            else if (max == this.props.binance){
                 this.setState({
                     makerFee: this.state.binanceFeePerc,
                     makerExchange: 'binance'              
                 });
             }
-            else if (this.state.max === this.props.coinbase){
+            else if (max == this.props.coinbase){
                 this.setState({
                     makerFee: this.state.coinbaseFeePerc,
                     makerExchange: 'coinbase'              
                 });
             }
-            else if (this.state.max === this.props.kraken){
+            else if (max == this.props.kraken){
                 this.setState({
                     makerFee: this.state.krakenMakerFeePerc,
                     makerExchange: 'kraken'              
                 });
             }
+            
             this.setState({
                 max: max,
                 min: min,
@@ -223,7 +224,6 @@ class Table extends Component {
         let userBTCAmount = parseInt(this.state.userBTCAmount)
         if (userBTCAmount > 200 || userBTCAmount == 200 ){
             let takerFees = (userBTCAmount * this.state.takerFee)
-            console.log('gemini taker fee', takerFees) 
             let makerFees = ((this.state.userBTCAmount * 0.0149))
             let profit = (((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees))
             this.setState({
@@ -258,7 +258,6 @@ class Table extends Component {
         let userBTCAmount = parseInt(this.state.userBTCAmount)            
         let makerFees = (userBTCAmount * .001)
         let takerFees = (userBTCAmount * this.state.takerFee)
-        console.log('binance taker fee', takerFees)
         let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
             this.setState({
                 binanceProfit: profit.toFixed(2),
@@ -273,7 +272,6 @@ class Table extends Component {
         let userBTCAmount = parseInt(this.state.userBTCAmount)            
         let makerFees = (userBTCAmount * .005)
         let takerFees = (userBTCAmount * this.state.takerFee)
-        console.log('coinbase taker fee', takerFees)
         let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
             this.setState({
                 coinbaseProfit: profit.toFixed(2)
@@ -287,7 +285,6 @@ class Table extends Component {
         let userBTCAmount = parseInt(this.state.userBTCAmount) 
         let makerFees = (userBTCAmount * .0016)
         let takerFees = (userBTCAmount * this.state.takerFee)
-        console.log('kraken taker fee', takerFees)
         let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
             this.setState({
                 krakenProfit: profit.toFixed(2)
@@ -339,7 +336,6 @@ class Table extends Component {
         <>  
         
                 <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
-          
             <form className='userInput' onSubmit={this.handleSubmit}>
                 <label className='formLabel'>
                 Trade limit in USD  
