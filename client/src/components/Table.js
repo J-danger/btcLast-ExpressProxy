@@ -31,29 +31,23 @@ class Table extends Component {
     }
 
     componentDidMount(){
-        this.geminiFees()
-        this.minMax()
+        this.geminiFees();
+        this.minMax();
         }
 
     handleChange(event) {
-        if (this.state.useUSD){
+        event.preventDefault();
             this.setState({userUSDAmount: event.target.value});
-            event.preventDefault();
-        }
-        else {
-            this.setState({userBTCAmount: event.target.value});
-            event.preventDefault();
-        }
         }
     
     handleSubmit(event) {
-        this.geminiFees()
-        this.GeminiProfitUSD()
-        this.binanceProfitUSD()
-        this.coinbaseProfitUSD()
-        this.krakenProfitUSD()
-        this.GeminiProfitBTC()
         event.preventDefault();
+        this.geminiFees();
+        this.geminiProfitUSD();
+        this.binanceProfitUSD();
+        this.coinbaseProfitUSD();
+        this.krakenProfitUSD();
+        this.geminiProfitBTC();
                   }
 
                       
@@ -188,7 +182,7 @@ class Table extends Component {
         }
     }
 
-    GeminiProfitUSD = () => {
+    geminiProfitUSD = () => {
         let currentPrice = parseInt(this.props.gemini)
         let min = parseInt(this.state.min)
         let minerFeePrice = parseInt(currentPrice * this.props.minerFastBTC).toFixed(4)
@@ -222,7 +216,7 @@ class Table extends Component {
        
     }
 
-    GeminiProfitBTC = () => {
+    geminiProfitBTC = () => {
         let currentPrice = parseInt(this.props.gemini)
         let min = parseInt(this.state.min)
         let minerFeePrice = parseInt(currentPrice * this.props.minerFastBTC).toFixed(4)
@@ -231,7 +225,7 @@ class Table extends Component {
         if (userUSDAmount > 200 || userUSDAmount == 200 ){
             let takerFees = (userBTCAmount * this.state.takerFee)
             let makerFees = ((this.state.userBTCAmount * 0.0149))
-            let profit = (((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees))
+            let profit = (((((currentPrice/min) * userUSDAmount) - userUSDAmount) - makerFees - takerFees))
             this.setState({
                 geminiProfitBTC: profit.toFixed(6)
             });
@@ -241,7 +235,7 @@ class Table extends Component {
             let makerFees = (this.state.geminiFeeBTC)
             let takerFees = (userUSDAmount * this.state.takerFee)
             console.log('gemini taker fee', takerFees) 
-            let profit = ((((currentPrice/min) * userBTCAmount) - userBTCAmount) - makerFees - takerFees)
+            let profit = ((((currentPrice/min) * userUSDAmount) - userUSDAmount) - makerFees - takerFees)
             this.setState({
                 geminiProfitBTC: profit.toFixed(6)
             });
@@ -302,11 +296,11 @@ class Table extends Component {
         }
 
     useUSD = event => {
-        event.preventDefault();
-        this.setState(state => ({
-        useBTC: false,
-        useUSD: true,          
-        }));
+            event.preventDefault();
+            this.setState(state => ({
+            useBTC: false,
+            useUSD: true,          
+            }));
     }
 
 
@@ -347,132 +341,11 @@ class Table extends Component {
 
         let minerFeePrice = (btcAvr * this.props.minerFastBTC).toFixed(4)
 
-        if (this.state.useBTC) {
-            return(
-                <>
-                <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
-                <button onClick ={this.useUSD}>USD</button>
-                <button onClick={this.useBTC}>BTC</button>
-            <form className='userInput' onSubmit={this.handleSubmit}>
-                <label className='formLabel'>
-                Trade limit in BTC  
-                <input className='formInput' type='number' value={this.state.userBTCAmount} onChange={this.handleChange} />
-                </label>
-                <input className='formSubmit' type='submit' value='Submit' />
-            </form>
-
-            <div className='tables'>
-                <div className='price-table'>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th className='chart-header' scope='col'>Exchange</th>
-                            <th className='chart-header' scope='col'>Current</th>
-                            <th className='chart-header' scope='col'>Last</th>
-                            <th className='chart-header' scope='col'>Difference</th>
-                            <th className='chart-header' scope='col'>Volume (24h)</th>
-                            <th className='chart-header' scope='col'>Fees</th>
-                            <th className='chart-header' scope='col'>Profit (BTC)</th>
-                            
-                            
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th className='coin-text' scope='row'>Gemini</th>
-                            <td className='price-text' >${this.props.gemini}</td>
-                            <td className='price-text' >${this.props.geminiBTCLast}</td>
-                            <td className='tooltip' >{geminiBTCPerc}%
-                            <span className='tooltiptext'>{geminiBTCDiff}</span>
-                            </td>
-                            <td className='price-text' >{geminiVolUSD}</td>
-                            <td className='price-text' >${this.state.geminiFee}</td>
-                            <td className='price-text' >{this.state.geminiProfitBTC}</td>
-                            <td className='price-text' ></td>
-                            
-                            
-                        </tr>
-                        <tr>
-                            <th className='coin-text' scope='row'>Binance</th>
-                            <td className='price-text' >${this.props.binance}</td>
-                            <td className='price-text' >${this.props.binanceBTCLast}</td>
-                            <td className='tooltip' >{binanceBTCPerc}%
-                            <span className='tooltiptext'>{binanceBTCDiff}</span>
-                            </td>
-                            <td className='price-text' >{binanceVol}</td>
-                            <td className='price-text' >{this.state.binanceFeePerc}%</td>
-                            <td className='price-text' >{this.state.binanceProfitBTC}</td>
-                            
-                            
-                           
-                            
-                        </tr>
-                        <tr>
-                            <th className='coin-text' scope='row'>Coinbase</th>
-                            <td className='price-text' >${this.props.coinbase}</td>
-                            <td className='price-text' >${this.props.coinbaseBTCLast}</td>
-                            <td className='tooltip' >{coinbaseBTCPerc}%
-                            <span className='tooltiptext'>{coinbaseBTCDiff}</span>
-                            </td>
-                            <td className='price-text' >{coinbaseVolUSD}</td>
-                            <td className='price-text' >{this.state.coinbaseFeePerc}%</td>
-                            <td className='price-text' >{this.state.coinbaseProfitBTC}</td>
-                            
-                            
-                            
-                        </tr>
-                        <tr>
-                            <th className='coin-text' scope='row'>Kraken</th>
-                            <td className='price-text' >${this.props.kraken}</td>
-                            <td className='price-text' >${this.props.krakenBTCLast}</td>
-                            <td className='tooltip' >{krakenBTCPerc}%
-                            <span className='tooltiptext'>{krakenBTCDiff}</span>
-                            </td>
-                            <td className='price-text' >{krakenVolUSD}</td>
-                            <td className='price-text' >{this.state.krakenMakerFeePerc}-{this.state.krakenTakerFeePerc}%</td>
-                            <td className='price-text' >{this.state.krakenProfitBTC}</td>
-                           
-                            
-                        
-                        </tr>
-                        </tbody>
-                    </table>
-                    
-                </div>
-                <div className='spread-data'>
-                    <table className='spread-table'>
-                        <tbody>
-                        <tr>
-                            <th className='spreadText'>Average: </th>
-                            <td className='spreadText'>${btcAvr}</td>
-                        </tr>
-                        <tr>
-                            <th className='spreadText'>Spread: </th>
-                            <td className='spreadText'>${spread}</td>
-                        </tr>
-                        <tr>
-                            <th className='spreadText'>Miner Fee: </th>
-                            <td className='tooltip'>${minerFeePrice} 
-                            <span className='tooltiptext'>{this.props.minerFastBTC} BTC</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-                </>
-            )
-        }
-        else {
-
-        
-        
         return(
 
         <>  
         
                 <p className='last-check'>You last checked at {this.state.lastTime} on {this.state.lastDate}</p>
-                <button onClick ={this.useUSD}>USD</button>
-                <button onClick={this.useBTC}>BTC</button>
             <form className='userInput' onSubmit={this.handleSubmit}>
                 <label className='formLabel'>
                 Trade limit in USD  
@@ -582,7 +455,7 @@ class Table extends Component {
             </div>
         </>
         )
-        }
+        
     }
 }
 
